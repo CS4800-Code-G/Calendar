@@ -1,0 +1,1 @@
+let results = await fetch(`${baseUrl}/posts/`).then(resp => resp.json());

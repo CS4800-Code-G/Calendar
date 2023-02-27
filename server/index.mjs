@@ -26,12 +26,18 @@ app.get('/', function(req,res){
 });
 
 
-app.get('/', function(req,res){
+app.get('/timeslot', function(req,res){
     res.sendFile(path.join(__dirname, "public",
-        req.url === "/" ? "schedular.html" : req.url
+        req.url === "/timeslot" ? "schedular.html" : req.url
     ));
 });
 
+
+app.get('/timeslot', function(req,res){
+    res.sendFile(path.join(__dirname, "public",
+        req.url === "/timeslot" ? "schedular.html" : req.url
+    ));
+});
 
 
 

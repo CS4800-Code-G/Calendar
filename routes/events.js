@@ -21,7 +21,9 @@ router.get('/:id', getEvent, (req, res) => {
 router.post('/', async (req,res) => {
     const event = new Event( {
         date: req.body.date,
-        title: req.body.title
+        title: req.body.title,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime
     })
     try {
         const newEvent = await event.save()
@@ -39,12 +41,23 @@ router.patch('/:id', getEvent, async (req,res) => {
     if (req.body.date != null) {
         res.event.date = req.body.date
     }
+
+    if (req.body.startTime != null) {
+        res.event.startTime = req.body.startTime
+    }
+    if (req.body.endTime != null) {
+        res.event.endTime = req.body.endTime
+    }
+
+
     try {
         const updatedEvent = await res.event.save()
         res.json(updatedEvent)
     } catch (err) {
         res.status(400).json({ message: err.message } )
     }
+
+
 })
 
 // Deleting one

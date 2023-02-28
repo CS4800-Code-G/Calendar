@@ -11,12 +11,14 @@ Content-Type: application/json
 
 {
     "date": "02/15/2023",
-    "title": "Meeting"
+    "title": "Meeting",
+    "startTime":"1:15PM" ,
+    "endTime":"5:00PM"
 }
 
 ###
 
-DELETE http://localhost:8080/events/63fe4352765a49b739d6d546
+DELETE http://localhost:8080/events/63fe4a0a446f89334207c733
 
 ###
 

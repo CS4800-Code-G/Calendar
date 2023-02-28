@@ -1,0 +1,29 @@
+GET http://localhost:8080/events
+
+###
+
+GET http://localhost:8080/events/63fda965141dacf3c2635d3d
+
+###
+
+POST http://localhost:8080/events
+Content-Type: application/json
+
+{
+    "date": "02/15/2023",
+    "title": "Meeting"
+}
+
+###
+
+DELETE http://localhost:8080/events/63fe4352765a49b739d6d546
+
+###
+
+PATCH http://localhost:8080/events/63fdbc950559b6749116a420
+Content-Type: application/json
+
+{
+    "date": "02/15/2023",
+    "title": "Birthday"
+}

@@ -1,0 +1,2 @@
+npm i --save-dev dotenv nodemon
+npm install serve-favicon mongodb mongoose express

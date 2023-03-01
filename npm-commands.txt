@@ -1,2 +1,7 @@
 npm i --save-dev dotenv nodemon
 npm install serve-favicon mongodb mongoose express
+
+To run:
+npm run devStart
+
+*Be sure that your IP address is in the Calendar.events IP access list in order to connect to the database*

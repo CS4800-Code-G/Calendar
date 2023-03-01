@@ -95,6 +95,8 @@ async function load() { // Load calendar onto view
 
 async function closeModal() { // Closing event window pop-up and resetting values
     eventTitleInput.classList.remove('error');
+    startTimeInput.classList.remove('error');
+    endTimeInput.classList.remove('error');
     eventModal.style.display = 'none';
     backDrop.style.display = 'none';
     eventTitleInput.value = '';
@@ -107,9 +109,11 @@ async function closeModal() { // Closing event window pop-up and resetting value
 }
 
 async function saveEvent() {
-    if (eventTitleInput.value || startTimeInput.value || endTimeInput.value) {
+    if (eventTitleInput.value && startTimeInput.value && endTimeInput.value) {
         events = events.filter(e => e.date !== clicked);
         eventTitleInput.classList.remove('error');
+        startTimeInput.classList.remove('error');
+        endTimeInput.classList.remove('error');
         events.push({
             date: clicked,
             title: eventTitleInput.value,
@@ -120,7 +124,15 @@ async function saveEvent() {
         localStorage.setItem('events', JSON.stringify(events));
         closeModal();
     } else {
-        eventTitleInput.classList.add('error');
+        if (!eventTitleInput.value) {
+            eventTitleInput.classList.add('error');
+        }
+        if (!startTimeInput.value) {
+            startTimeInput.classList.add('error');
+        }
+        if (!endTimeInput.value) {
+            endTimeInput.classList.add('error');
+        }
     }
 }
 

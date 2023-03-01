@@ -6,6 +6,8 @@ const calendar = document.getElementById('calendar');
 const eventModal = document.getElementById('eventModal');
 const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
+const startTimeInput = document.getElementById('startTimeInput');
+const endTimeInput = document.getElementById('endTimeInput');
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 async function openModal(date) { // Open event window pop-up when a calendar square is clicked
@@ -16,6 +18,8 @@ async function openModal(date) { // Open event window pop-up when a calendar squ
     if (eventForDay) {
         document.getElementById('modalTitle').innerText = "Edit Event";
         eventTitleInput.value = eventForDay.title;
+        startTimeInput.value = eventForDay.startTime;
+        endTimeInput.value = eventForDay.endTime;
         document.getElementById('deleteButton').style.visibility = 'visible';
     } else {
         document.getElementById('modalTitle').innerText = "New Event";
@@ -94,6 +98,8 @@ async function closeModal() { // Closing event window pop-up and resetting value
     eventModal.style.display = 'none';
     backDrop.style.display = 'none';
     eventTitleInput.value = '';
+    startTimeInput.value = '';
+    endTimeInput.value = '';
     flag = 0;
     replaced = false;
     clicked = null;
@@ -101,12 +107,14 @@ async function closeModal() { // Closing event window pop-up and resetting value
 }
 
 async function saveEvent() {
-    if (eventTitleInput.value) {
+    if (eventTitleInput.value || startTimeInput.value || endTimeInput.value) {
         events = events.filter(e => e.date !== clicked);
         eventTitleInput.classList.remove('error');
         events.push({
             date: clicked,
             title: eventTitleInput.value,
+            startTime: startTimeInput.value,
+            endTime: endTimeInput.value
         });
 
         localStorage.setItem('events', JSON.stringify(events));

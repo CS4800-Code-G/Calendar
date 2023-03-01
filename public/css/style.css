@@ -99,13 +99,23 @@ body {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 15px; /* 25 */
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  #startTimeInput, #endTimeInput {
+    padding: 10px;
+    width: 25%;
+    box-sizing: border-box;
     margin-bottom: 25px;
     border-radius: 3px;
     outline: none;
     border: none;
     box-shadow: 0px 0px 3px gray;
   }
-  #eventTitleInput.error {
+  #eventTitleInput.error, #startTimeInput.error, #endTimeInput.error {
     border: 2px solid red;
   }
   #deleteButton {

@@ -2,6 +2,7 @@ let nav = 0;
 let clicked = null;
 let events = [];
 let eventId = null;
+let flag = 0;
 let update = false;
 
 
@@ -13,12 +14,13 @@ const startTimeInput = document.getElementById('startTimeInput');
 const endTimeInput = document.getElementById('endTimeInput');
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-async function openModal(date) { // Open event window pop-up when a calendar square is clicked
+// Open event window pop-up when a calendar date is clicked
+async function openModal(date) {
     clicked = date;
 
     const eventForDay = events.find(e => e.date === clicked);
 
-    if (eventForDay) {
+    if (flag !== 0) {
         document.getElementById('modalTitle').innerText = "Edit Event";
         eventId = eventForDay._id
         eventTitleInput.value = eventForDay.title;
@@ -36,7 +38,7 @@ async function openModal(date) { // Open event window pop-up when a calendar squ
     backDrop.style.display = 'block';
 }
 
-// Get events from database (Read)
+// Get events from the database (Read)
 async function getEvents() {
     fetch('/events')
         .then(response => response.json())
@@ -45,6 +47,27 @@ async function getEvents() {
             load();
         })
         .catch(error => console.error(error));
+}
+
+// Get an event from the database (Read)
+async function openModalById(id) {
+    document.getElementById('modalTitle').innerText = "Edit Event";
+
+    fetch('/events/' + id)
+        .then(response => response.json())
+        .then(event => {
+            eventId = event._id
+            eventTitleInput.value = event.title;
+            startTimeInput.value = event.startTime;
+            endTimeInput.value = event.endTime;
+            console.log('Selected event:', event);
+        })
+        .catch(error => console.error(error));
+
+    update = true;
+    document.getElementById('deleteButton').style.visibility = 'visible';
+    eventModal.style.display = 'block';
+    backDrop.style.display = 'block';
 }
 
 // (Create) and add an event to the database
@@ -103,7 +126,8 @@ async function deleteEventById(id) {
         });
 }
 
-async function load() { // Load calendar onto view
+// Load calendar onto view
+async function load() {
     const dt = new Date();
 
     console.log('Events:', events);
@@ -140,19 +164,23 @@ async function load() { // Load calendar onto view
 
         if (i > paddingDays) {
             daySquare.innerText = i - paddingDays;
-            const eventForDay = events.find(e => e.date === dayString);
+
+            const eventsForDay = events.filter(event => event.date.indexOf(dayString) !== -1);
 
             if (i - paddingDays === day && nav === 0) { // Highlight current day
                 daySquare.id = 'currentDay';
             }
 
-            if (eventForDay) { // If event exists, load in its date
+            for (e of eventsForDay) {
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
-                eventDiv.innerText = eventForDay.title;
-                eventDiv.addEventListener('click', () => { 
-                    openModal(dayString);
-                });
+                eventDiv.innerText = e.title;
+                eventDiv.addEventListener('click', (function(id) {
+                    return function() {
+                        flag++;
+                        openModalById(id);
+                    }
+                })(e._id));
                 daySquare.appendChild(eventDiv);
             }
 
@@ -167,7 +195,8 @@ async function load() { // Load calendar onto view
     }
 }
 
-async function closeModal() { // Closing event window pop-up and resetting values
+// Closing event window pop-up and resetting values
+async function closeModal() {
     eventTitleInput.classList.remove('error');
     startTimeInput.classList.remove('error');
     endTimeInput.classList.remove('error');
@@ -176,10 +205,11 @@ async function closeModal() { // Closing event window pop-up and resetting value
     eventTitleInput.value = '';
     startTimeInput.value = '';
     endTimeInput.value = '';
+    flag = 0;
     clicked = null;
-    //load();
 }
 
+// Saves event by creating if new or updating if created prior (clicking on 'Save' button)
 async function saveEvent() {
     if (eventTitleInput.value && startTimeInput.value && endTimeInput.value) {
         events = events.filter(e => e.date !== clicked);
@@ -219,6 +249,7 @@ async function saveEvent() {
     }
 }
 
+// Deletes an event when clicking on the 'Delete' button
 async function deleteEvent() {
     deleteEventById(eventId);
     closeModal();

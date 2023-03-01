@@ -2,7 +2,7 @@ let nav = 0;
 let clicked = null;
 let events = [];
 let eventId = null;
-let flag = 0;
+let eventFlag = false;
 let update = false;
 
 
@@ -20,7 +20,7 @@ async function openModal(date) {
 
     const eventForDay = events.find(e => e.date === clicked);
 
-    if (flag !== 0) {
+    if (eventFlag === true) {
         document.getElementById('modalTitle').innerText = "Edit Event";
         eventId = eventForDay._id
         eventTitleInput.value = eventForDay.title;
@@ -118,7 +118,7 @@ async function deleteEventById(id) {
       })
         .then(response => response.json())
         .then(data => {
-          console.log('Event deleted:', data);
+          console.log('Deleted event:', data);
           getEvents();
         })
         .catch(error => {
@@ -177,7 +177,7 @@ async function load() {
                 eventDiv.innerText = e.title;
                 eventDiv.addEventListener('click', (function(id) {
                     return function() {
-                        flag++;
+                        eventFlag = true;
                         openModalById(id);
                     }
                 })(e._id));
@@ -205,7 +205,7 @@ async function closeModal() {
     eventTitleInput.value = '';
     startTimeInput.value = '';
     endTimeInput.value = '';
-    flag = 0;
+    eventFlag = false;
     clicked = null;
 }
 

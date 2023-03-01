@@ -126,12 +126,18 @@ async function saveEvent() {
     } else {
         if (!eventTitleInput.value) {
             eventTitleInput.classList.add('error');
+        } else {
+            eventTitleInput.classList.remove('error');
         }
         if (!startTimeInput.value) {
             startTimeInput.classList.add('error');
+        } else {
+            startTimeInput.classList.remove('error');
         }
         if (!endTimeInput.value) {
             endTimeInput.classList.add('error');
+        } else {
+            endTimeInput.classList.remove('error');
         }
     }
 }

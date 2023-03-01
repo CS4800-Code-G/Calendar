@@ -41,7 +41,6 @@ router.patch('/:id', getEvent, async (req,res) => {
     if (req.body.date != null) {
         res.event.date = req.body.date
     }
-
     if (req.body.startTime != null) {
         res.event.startTime = req.body.startTime
     }
@@ -49,22 +48,20 @@ router.patch('/:id', getEvent, async (req,res) => {
         res.event.endTime = req.body.endTime
     }
 
-
     try {
         const updatedEvent = await res.event.save()
         res.json(updatedEvent)
     } catch (err) {
         res.status(400).json({ message: err.message } )
     }
-
-
+    
 })
 
 // Deleting one
 router.delete('/:id', getEvent, async (req,res) => {
     try {
-        await res.event.deleteOne()
-        res.json({ message: 'Deleted event'})
+        const deletedEvent = await res.event.deleteOne()
+        res.json(deletedEvent)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }

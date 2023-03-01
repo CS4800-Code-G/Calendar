@@ -1,6 +1,9 @@
 let nav = 0;
 let clicked = null;
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
+let events = [];
+let eventId = null;
+let update = false;
+
 
 const calendar = document.getElementById('calendar');
 const eventModal = document.getElementById('eventModal');
@@ -17,22 +20,93 @@ async function openModal(date) { // Open event window pop-up when a calendar squ
 
     if (eventForDay) {
         document.getElementById('modalTitle').innerText = "Edit Event";
+        eventId = eventForDay._id
         eventTitleInput.value = eventForDay.title;
         startTimeInput.value = eventForDay.startTime;
         endTimeInput.value = eventForDay.endTime;
+        update = true;
         document.getElementById('deleteButton').style.visibility = 'visible';
     } else {
         document.getElementById('modalTitle').innerText = "New Event";
         document.getElementById('deleteButton').style.visibility = 'hidden';
+        update = false;
     }
 
     eventModal.style.display = 'block';
     backDrop.style.display = 'block';
 }
 
+// Get events from database (Read)
+async function getEvents() {
+    fetch('/events')
+        .then(response => response.json())
+        .then(data => {
+            events = data;
+            load();
+        })
+        .catch(error => console.error(error));
+}
+
+// (Create) and add an event to the database
+async function createEvent(event) {
+    fetch('/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      })
+        .then(response => response.json())
+        .then(data => { 
+            console.log('Created event:', data);
+            getEvents();
+         })
+        .catch(error => console.error(error));
+}
+
+// (Update) an event from the database
+async function updateEvent(id, updatedEvent) {
+    fetch(`/events/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedEvent)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update event');
+        }
+        return response.json();
+    })
+    .then(updatedEvent => {
+        console.log('Updated event:', updatedEvent);
+        getEvents();
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+// (Delete) an event from the database
+async function deleteEventById(id) {
+    fetch('/events/' + id, {
+        method: 'DELETE'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Event deleted:', data);
+          getEvents();
+        })
+        .catch(error => {
+          console.error('Error deleting event:', error);
+        });
+}
+
 async function load() { // Load calendar onto view
     const dt = new Date();
-    console.log(events);
+
+    console.log('Events:', events);
 
     if (nav !== 0) {
         dt.setMonth(new Date().getMonth() + nav);
@@ -102,10 +176,8 @@ async function closeModal() { // Closing event window pop-up and resetting value
     eventTitleInput.value = '';
     startTimeInput.value = '';
     endTimeInput.value = '';
-    flag = 0;
-    replaced = false;
     clicked = null;
-    load();
+    //load();
 }
 
 async function saveEvent() {
@@ -114,15 +186,20 @@ async function saveEvent() {
         eventTitleInput.classList.remove('error');
         startTimeInput.classList.remove('error');
         endTimeInput.classList.remove('error');
-        events.push({
+        const event = {
             date: clicked,
             title: eventTitleInput.value,
             startTime: startTimeInput.value,
             endTime: endTimeInput.value
-        });
+        };
 
-        localStorage.setItem('events', JSON.stringify(events));
+        if (update === true) {
+            updateEvent(eventId, event);
+        } else {
+            createEvent(event);
+        }
         closeModal();
+
     } else {
         if (!eventTitleInput.value) {
             eventTitleInput.classList.add('error');
@@ -143,8 +220,7 @@ async function saveEvent() {
 }
 
 async function deleteEvent() {
-    events = events.filter(e => e.date !== clicked);
-    localStorage.setItem('events', JSON.stringify(events));
+    deleteEventById(eventId);
     closeModal();
 }
 
@@ -164,5 +240,6 @@ async function initButtons() {
     document.getElementById('cancelButton').addEventListener('click', closeModal);
 }
 
+getEvents();
 initButtons();
 load();

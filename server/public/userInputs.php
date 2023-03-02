@@ -1,34 +1,33 @@
 <?php
-require 'vendor/autoload.php';//importing mongodb php library
+require_once "vendor/autoload.php";// to install use cmd: pecl install mongodb
+                                    // then look for the installation in your file   extension=mongodb.so
 
-$client = new MongoDB\Client("mongodb://localhost:8080");
-$db = $client->selectDatabase('my_database');
-$collection = $db->selectCollection('my_collection');
 
-$result = $collection->find();
+$mongo_uri = "mongodb+srv://<username>:<password>@<clustername>.<clusterlocation>.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
-foreach ($result as $document) {
-    var_dump($document);
-}
+// Replace <username>, <password>, <clustername>, <clusterlocation>, and <dbname> with your actual values
+
+$mongo = new MongoDB\Client($mongo_uri);
 
 
 
-?>
-
+// connect to MongoDB
+$mongo = new MongoDB\Driver\Manager("mongodb://localhost:8080");
 
 
 
 
-<?php
-require 'vendor/autoload.php';
-
-$client = new MongoDB\Client("mongodb://localhost:27017");
-$db = $client->selectDatabase('my_database');
-$collection = $db->selectCollection('my_collection');
-
-$result = $collection->find();
-
-foreach ($result as $document) {
-    var_dump($document);
+// check if form is submitted
+if(isset($_POST['submit'])){
+  // get values of selected checkboxes
+  if(!empty($_POST['times'])) {
+    foreach($_POST['times'] as $selected) {
+      // save the selected checkbox values to MongoDB
+      $bulk = new MongoDB\Driver\BulkWrite;
+      $doc = ['times' => $selected];
+      $bulk->insert($doc);
+      $mongo->executeBulkWrite('db.collection', $bulk);
+    }
+  }
 }
 ?>

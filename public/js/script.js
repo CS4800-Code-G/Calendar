@@ -68,7 +68,7 @@ async function openModalById(id) {
         document.getElementById('deleteButton').style.visibility = 'visible';
         eventModal.style.display = 'block';
         backDrop.style.display = 'block';
-     }, 50); // Delay for 50 ms
+     }, 80); // Delay for 80 ms
 }
 
 // (Create) and add an event to the database

@@ -4,6 +4,7 @@ let events = [];
 let eventId = null;
 let eventFlag = false;
 let update = false;
+let currentColor = "#58bae4";
 
 
 const calendar = document.getElementById('calendar');
@@ -12,30 +13,21 @@ const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const startTimeInput = document.getElementById('startTimeInput');
 const endTimeInput = document.getElementById('endTimeInput');
+const colorInput = document.getElementById('colorInput');
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // Open event window pop-up when a calendar date is clicked
 async function openModal(date) {
     clicked = date;
 
-    const eventForDay = events.find(e => e.date === clicked);
-
-    if (eventFlag === true) {
-        document.getElementById('modalTitle').innerText = "Edit Event";
-        eventId = eventForDay._id
-        eventTitleInput.value = eventForDay.title;
-        startTimeInput.value = eventForDay.startTime;
-        endTimeInput.value = eventForDay.endTime;
-        update = true;
-        document.getElementById('deleteButton').style.visibility = 'visible';
-    } else {
+    if (eventFlag === false) {
         document.getElementById('modalTitle').innerText = "New Event";
         document.getElementById('deleteButton').style.visibility = 'hidden';
+        colorInput.value = currentColor;
         update = false;
+        eventModal.style.display = 'block';
+        backDrop.style.display = 'block';
     }
-
-    eventModal.style.display = 'block';
-    backDrop.style.display = 'block';
 }
 
 // Get events from the database (Read)
@@ -61,14 +53,22 @@ async function openModalById(id) {
             eventTitleInput.value = event.title;
             startTimeInput.value = event.startTime;
             endTimeInput.value = event.endTime;
+            if (event.color) {
+                colorInput.value = event.color;
+                currentColor = event.color;
+            } else {
+                colorInput.value = currentColor;
+            }
             console.log('Selected event:', event);
         })
         .catch(error => console.error(error));
 
     update = true;
-    document.getElementById('deleteButton').style.visibility = 'visible';
-    eventModal.style.display = 'block';
-    backDrop.style.display = 'block';
+    setTimeout(() => {  
+        document.getElementById('deleteButton').style.visibility = 'visible';
+        eventModal.style.display = 'block';
+        backDrop.style.display = 'block';
+     }, 50); // Delay for 50 ms
 }
 
 // (Create) and add an event to the database
@@ -174,6 +174,11 @@ async function load() {
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
                 eventDiv.innerText = e.title;
+                if (e.color) {
+                    eventDiv.style.backgroundColor = e.color;
+                } else {
+                    eventDiv.style.backgroundColor = currentColor;
+                }
                 eventDiv.addEventListener('click', (function(id) {
                     return function() {
                         eventFlag = true;
@@ -206,6 +211,7 @@ async function closeModal() {
     endTimeInput.value = '';
     eventFlag = false;
     clicked = null;
+    load();
 }
 
 // Saves event by creating if new or updating if created prior (clicking on 'Save' button)
@@ -219,7 +225,8 @@ async function saveEvent() {
             date: clicked,
             title: eventTitleInput.value,
             startTime: startTimeInput.value,
-            endTime: endTimeInput.value
+            endTime: endTimeInput.value,
+            color: colorInput.value
         };
 
         if (update === true) {

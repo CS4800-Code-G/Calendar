@@ -75,7 +75,7 @@ body {
     overflow: hidden;
   }
   .event:hover {
-    background-color: #a9d2e4;
+    background-color: #b2d4c7 !important;
   }
   .padding {
     cursor: default !important;
@@ -99,7 +99,7 @@ body {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 15px; /* 25 */
+    /*margin-bottom: 1px; /* 25 */
     border-radius: 3px;
     outline: none;
     border: none;
@@ -109,14 +109,29 @@ body {
     padding: 10px;
     width: 25%;
     box-sizing: border-box;
+    margin-top: 22px;
     margin-bottom: 25px;
     border-radius: 3px;
     outline: none;
     border: none;
     box-shadow: 0px 0px 3px gray;
+    vertical-align: middle;
   }
   #eventTitleInput.error, #startTimeInput.error, #endTimeInput.error {
     border: 2px solid red;
+  }
+  #colorInput {
+    width: 35px;
+    height: 35px;
+    margin-top: 22px;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 3px gray;
+    vertical-align: middle;
   }
   #deleteButton {
     background-color: #d36c6c;

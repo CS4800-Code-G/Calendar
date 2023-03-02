@@ -44,6 +44,7 @@ async function getEvents() {
         .then(response => response.json())
         .then(data => {
             events = data;
+            console.log('Events:', events);
             load();
         })
         .catch(error => console.error(error));
@@ -129,8 +130,6 @@ async function deleteEventById(id) {
 // Load calendar onto view
 async function load() {
     const dt = new Date();
-
-    console.log('Events:', events);
 
     if (nav !== 0) {
         dt.setMonth(new Date().getMonth() + nav);

@@ -206,6 +206,7 @@ async function closeModal() {
     eventTitleInput.value = '';
     startTimeInput.value = '';
     endTimeInput.value = '';
+    currentColor = colorInput.value;
     eventFlag = false;
     clicked = null;
     load();

@@ -59,16 +59,13 @@ async function openModalById(id) {
             } else {
                 colorInput.value = currentColor;
             }
+            update = true;
+            document.getElementById('deleteButton').style.visibility = 'visible';
+            eventModal.style.display = 'block';
+            backDrop.style.display = 'block';
             console.log('Selected event:', event);
         })
         .catch(error => console.error(error));
-
-    update = true;
-    setTimeout(() => {  
-        document.getElementById('deleteButton').style.visibility = 'visible';
-        eventModal.style.display = 'block';
-        backDrop.style.display = 'block';
-     }, 80); // Delay for 80 ms
 }
 
 // (Create) and add an event to the database

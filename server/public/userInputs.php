@@ -3,9 +3,9 @@ require_once "vendor/autoload.php";// to install use cmd: pecl install mongodb
                                     // then look for the installation in your file   extension=mongodb.so
 
 
-$mongo_uri = "mongodb+srv://<username>:<password>@<clustername>.<clusterlocation>.mongodb.net/<dbname>?retryWrites=true&w=majority";
+$mongo_uri = "mongodb+srv://achan:achan@calendar.1lb7whx.mongodb.net/Calendar?retryWrites=true&w=majority";
 
-// Replace <username>, <password>, <clustername>, <clusterlocation>, and <dbname> with your actual values
+// Replace mongodb+srv://<username>:<password>@<clustername>.<clusterlocation>.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
 $mongo = new MongoDB\Client($mongo_uri);
 

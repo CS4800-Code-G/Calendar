@@ -1,7 +1,20 @@
-npm i --save-dev dotenv nodemon
-npm install serve-favicon mongodb mongoose express
+Have two terminals open
+Do 'cd client' in one terminal and 'cd server' in the other
 
-To run:
-npm run devStart
+In client directory:
+npm install react@17.0.2 react-dom@17.0.2 --force
+npm install stream-chat@4.1.0 stream-chat-react@6.5.1 universal-cookie --force
+npm install axios --force
 
-*Be sure that your IP address is in the Calendar.events IP access list in order to connect to the database*
+To run client:
+npm start
+
+In server directory:
+npm install mongodb mongoose
+npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
+npm install cors
+
+To run server:
+npm run start
+Or
+npm run dev (server keeps running after any changes made on the server-side)

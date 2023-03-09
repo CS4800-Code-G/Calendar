@@ -32,7 +32,7 @@ async function openModal(date) {
 
 // Get events from the database (Read)
 async function getEvents() {
-    fetch('/events')
+    fetch('http://localhost:5000/events')
         .then(response => response.json())
         .then(data => {
             events = data;
@@ -46,7 +46,7 @@ async function getEvents() {
 async function openModalById(id) {
     document.getElementById('modalTitle').innerText = "Edit Event";
 
-    fetch('/events/' + id)
+    fetch('http://localhost:5000/events/' + id)
         .then(response => response.json())
         .then(event => {
             eventId = event._id
@@ -70,7 +70,7 @@ async function openModalById(id) {
 
 // (Create) and add an event to the database
 async function createEvent(event) {
-    fetch('/events', {
+    fetch('http://localhost:5000/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ async function createEvent(event) {
 
 // (Update) an event from the database
 async function updateEvent(id, updatedEvent) {
-    fetch(`/events/${id}`, {
+    fetch(`http://localhost:5000/events/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -111,7 +111,7 @@ async function updateEvent(id, updatedEvent) {
 
 // (Delete) an event from the database
 async function deleteEventById(id) {
-    fetch('/events/' + id, {
+    fetch('http://localhost:5000/events/' + id, {
         method: 'DELETE'
       })
         .then(response => response.json())
@@ -167,7 +167,7 @@ async function load() {
                 daySquare.id = 'currentDay';
             }
 
-            for (e of eventsForDay) {
+            for (let e of eventsForDay) {
                 const eventDiv = document.createElement('div');
                 eventDiv.classList.add('event');
                 eventDiv.innerText = e.title;

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Event = require('../model/event')
 
-// Getting all
+// Getting all events
 router.get('/', async (req, res) => {
     try {
         const events = await Event.find()
@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Getting one by id
+// Getting one event by id
 router.get('/:id', getEvent, (req, res) => {
     res.send(res.event)
 })
 
-// Creating one
+// Creating one event
 router.post('/', async (req,res) => {
     const event = new Event( {
         date: req.body.date,
@@ -34,7 +34,7 @@ router.post('/', async (req,res) => {
     }
 })
 
-// Updating one
+// Updating one event
 router.patch('/:id', getEvent, async (req,res) => {
     if (req.body.title != null) {
         res.event.title = req.body.title
@@ -61,7 +61,7 @@ router.patch('/:id', getEvent, async (req,res) => {
     
 })
 
-// Deleting one
+// Deleting one event
 router.delete('/:id', getEvent, async (req,res) => {
     try {
         const deletedEvent = await res.event.deleteOne()

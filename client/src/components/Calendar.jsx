@@ -4,7 +4,7 @@ import { Day } from './Day'
 import { NewEventModal } from './NewEventModal'
 import { useDate } from '../hooks/useDate'
 
-const Calendar = (username) => {
+const Calendar = (user) => {
     const [nav, setNav] = useState(0)
     const [clicked, setClicked] = useState()
     const [events, setEvents] = useState([])
@@ -76,7 +76,8 @@ const Calendar = (username) => {
                             onClick={() => {
                                 if (d.value !== 'padding') {
                                     setClicked(d.date)
-                                    console.log(username.username) // username.username returns the actual username as a string
+                                    console.log(user.data.username) // user.data.<property> to access a specific property of the user
+                                    console.log(user)
                                     if (eventFlag === true) {
                                         setClicked(null)
                                     }

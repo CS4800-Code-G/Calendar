@@ -43,9 +43,29 @@ const Auth = () => {
             cookies.set('phoneNumber', phoneNumber)
             cookies.set('avatarURL', avatarURL)
             cookies.set('hashedPassword', hashedPassword)
+            // Only send user info to database when registering an account
+
+            /** Send a POST fetch request here of user's userId,
+             *  fullName, username, hashedPassword, phoneNumber, and avatar.
+             * 
+             *  Look at server/model/user.js to see the user properties used */
         }
 
         window.location.reload()
+    }
+
+    // Call this function to send POST request to database
+    async function createUser(user) {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+          })
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => console.error(error));
     }
 
     const switchMode = () => {

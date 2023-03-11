@@ -30,6 +30,7 @@ const App = () => {
     const [createType, setCreateType] = useState('')
     const [isCreating, setIsCreating] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
+    const username = cookies.get('username')
 
     if (!authToken) return <Auth />
 
@@ -42,7 +43,7 @@ const App = () => {
                     setCreateType = {setCreateType}
                     setIsEditing = {setIsEditing}
                 />
-                <Calendar />
+                <Calendar username={username}/>
                 <ChannelContainer
                     isCreating = {isCreating}
                     setIsCreating = {setIsCreating}

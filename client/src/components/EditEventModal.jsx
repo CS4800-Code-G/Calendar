@@ -27,17 +27,16 @@ export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStar
                     value={startTimeInput} 
                     onChange={e => setStartTimeInput(e.target.value)} 
                     id="startTimeInput"
-                    placeholder="Start Time"
+                    type = 'time'
                 />
-                -
+                
                 <input 
                     className={endTimeError ? 'error' : ''}
                     value={endTimeInput} 
                     onChange={e => setEndTimeInput(e.target.value)} 
                     id="endTimeInput"
-                    placeholder="End Time"
+                    type = 'time'
                 />
-
                 <input 
                     value={colorInput} 
                     onChange={e => setColorInput(e.target.value)} 

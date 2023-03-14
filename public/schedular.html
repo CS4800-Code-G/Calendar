@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
  <link rel="stylesheet" href="schedular.css">
@@ -8,11 +8,9 @@
 <body style="background-color:#cecece">
  <h1>Select a Time Slot</h1>  
  
-<!--  useref  --> 
-
- <!-- We dont have an php file yet, but this is where the user input's will be sent and stored -->
+ 
  <form id="myForm">
-
+ We dont have an php file yet, but this is where the user input's will be sent and stored 
     <label for="12am" class="left-align">12 AM </label>
     <input type="checkbox" id="12am" name="times[]" value="12am">  <br>
 
@@ -134,6 +132,8 @@
     <br><br>
 
 
+    <label for="appt">Select a time:</label>
+    <input type="time" id="appt" name="appt">
 
     <input type="submit" value="Submit">
   </form> 
@@ -167,7 +167,37 @@
 
 </body>
 </html>
+-->
 
+<!DOCTYPE html>
+<html>
+<body>
 
+<h1>Show a Time Input Control</h1>
+
+<p>If the browser supports it, a time picker pops up when entering the input field.</p>
+
+<style>
+  label {
+    display: inline-block;
+    width: 100px; /* adjust this value as needed */
+  }
+</style>
+
+<form action="/action_page.php">
+  <label for="start">Start time:</label>
+  <input type="time" id="start" name="start">
+  <br>
+
+  <label for="end">End time:</label>
+  <input type="time" id="end" name="end">
+  <br>
+  
+  <input type="submit">
+</form>
+<p><strong>Note:</strong> type="time" is not supported in Internet Explorer 11 or prior Safari 14.1.</p>
+
+</body>
+</html>
 
 

@@ -4,10 +4,12 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
     const [eventTitleInput, setEventTitleInput] = useState('');
     const [startTimeInput, setStartTimeInput] = useState('');
     const [endTimeInput, setEndTimeInput] = useState('');
+    const [locationInput, setLocationInput] = useState('');
     const [colorInput, setColorInput] = useState(currentColor);
     const [eventError, setEventError] = useState(false);
     const [startTimeError, setStartTimeError] = useState(false);
     const [endTimeError, setEndTimeError] = useState(false);
+    const [locationError, setLocationError] = useState(false);
 
     return(
         <>
@@ -27,15 +29,15 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
                     value={startTimeInput} 
                     onChange={e => setStartTimeInput(e.target.value)} 
                     id="startTimeInput"
-                    type = 'time'
+                    type='time'
                 />
-                
+                -
                 <input 
                     className={endTimeError ? 'error' : ''}
                     value={endTimeInput} 
                     onChange={e => setEndTimeInput(e.target.value)} 
                     id="endTimeInput"
-                    type = 'time'
+                    type='time'
                 />
 
                 <input 
@@ -46,13 +48,22 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
                 />
                 <br></br>
 
+                <input 
+                    className={locationError ? 'error' : ''}
+                    value={locationInput} 
+                    onChange={e => setLocationInput(e.target.value)} 
+                    id="locationInput"
+                    placeholder="Location"
+                />
+
                 <button 
                 onClick={() => {
-                    if (eventTitleInput && startTimeInput && endTimeInput) {
+                    if (eventTitleInput && startTimeInput && endTimeInput && locationInput) {
                         setEventError(false)
                         setStartTimeError(false)
                         setEndTimeError(false)
-                        onSave(eventTitleInput, startTimeInput, endTimeInput, colorInput)
+                        setLocationError(false)
+                        onSave(eventTitleInput, startTimeInput, endTimeInput, locationInput, colorInput)
                     } else {
                         if (!eventTitleInput) {
                             setEventError(true)
@@ -68,6 +79,11 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
                             setEndTimeError(true)
                         } else {
                             setEndTimeError(false)
+                        }
+                        if (!locationInput) {
+                            setLocationError(true)
+                        } else {
+                            setLocationError(false)
                         }
                     }
                 }} 

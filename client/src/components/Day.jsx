@@ -66,14 +66,16 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
                     eventText={eventClicked.title}
                     eventStartTime={eventClicked.startTime}
                     eventEndTime={eventClicked.endTime}
+                    eventLocation={eventClicked.location}
                     eventColor={eventClicked.color}
                     setCurrentColor={setCurrentColor}
-                    onSave={(eventTitleInput, startTimeInput, endTimeInput, colorInput) => {
+                    onSave={(eventTitleInput, startTimeInput, endTimeInput, locationInput, colorInput) => {
                         const event = {
                             date: eventClicked.date,
                             title: eventTitleInput,
                             startTime: startTimeInput,
                             endTime: endTimeInput,
+                            location: locationInput,
                             color: colorInput
                         };
                         updateEvent(eventClicked._id, event)

@@ -1966,18 +1966,28 @@
     box-sizing: border-box;
     margin-top: 22px;
     margin-bottom: 25px;
-    margin-left: 4px;
+    margin-left: 5px;
     border-radius: 3px;
     outline: none;
     border: none;
     box-shadow: 0px 0px 3px gray;
     vertical-align: middle;
   }
-  #eventTitleInput::placeholder, #startTimeInput::placeholder, #endTimeInput::placeholder, #eventTitleInput.error::placeholder, #startTimeInput.error::placeholder, #endTimeInput.error::placeholder {
+  #eventTitleInput::placeholder, #eventTitleInput.error::placeholder, #locationInput::placeholder, #locationInput.error::placeholder {
     color: #8e8e8e
   }
-  #eventTitleInput.error, #startTimeInput.error, #endTimeInput.error {
+  #eventTitleInput.error, #startTimeInput.error, #endTimeInput.error, #locationInput.error {
     border: 2px solid red;
+  }
+  #locationInput {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
   }
   #colorInput {
     width: 35px;

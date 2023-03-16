@@ -24,37 +24,57 @@ const EditChannel = ({ setIsEditing }) => {
   const { channel, client } = useChatContext();
   const [channelName, setChannelName] = useState(channel?.data?.name);
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const userId = client.userID;
-  const isOwner = channel?.data?.created_by?.id === userId;
+  const currentUser = client.userID;
+
+  const isOwner = channel?.data?.created_by?.id === currentUser;
 
   const updateChannel = async (event) => {
     event.preventDefault();
-
+  
     const nameChanged = channelName !== (channel.data.name || channel.data.id);
-
+  
     if (nameChanged) {
+      const existingChannels = await client.queryChannels({
+        type: channel.type,
+        name: channelName,
+      });
+  
+      if (existingChannels.length) {
+        // If a channel with the same name already exists, remove the current channel name from the list of channels
+        const filteredChannels = existingChannels.filter(c => c.id !== channel.id);
+  
+        // If there are still channels with the same name, throw an error
+        if (filteredChannels.length) {
+          throw new Error(`A channel with the name ${channelName} already exists.`);
+        }
+      }
+  
       await channel.update({ name: channelName }, { text: `Channel name changed to ${channelName}` });
     }
-
+  
     if (selectedUsers.length) {
       await channel.addMembers(selectedUsers);
     }
-
+  
     setChannelName(null);
     setIsEditing(false);
     setSelectedUsers([]);
   };
 
-  const leaveChannel = async () => {
-    if (isOwner) {
-      const confirmed = window.confirm('Are you sure you want to delete this channel?');
-      if (!confirmed) return;
+  const handleDeleteChannel = async () => {
+    const confirmed = window.confirm('Are you sure you want to delete this channel? This cannot be undone.');
+    if (!confirmed) return;
 
-      await client.channel(channel.type, channel.id).delete();
-    } else {
-      await client.channel(channel.type, channel.id).removeMembers([client.userID]);
-    }
+    await channel.delete();
+    setIsEditing(false);
+    // Navigate to a different channel or page
+  };
 
+  const handleLeaveChannel = async () => {
+    const confirmed = window.confirm('Are you sure you want to leave this channel?');
+    if (!confirmed) return;
+
+    await client.channel(channel.type, channel.id).delete({hard_delete: true});
     setIsEditing(false);
     // Navigate to a different channel or page
   };
@@ -67,15 +87,20 @@ const EditChannel = ({ setIsEditing }) => {
       </div>
       <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />
       <UserList setSelectedUsers={setSelectedUsers} />
+      {isOwner ? (
+        <div className='edit-channel__button-wrapper delete-leave' onClick={handleDeleteChannel}>
+          <p>Delete Channel</p>
+        </div>
+      ) : (
+        <div className='edit-channel__button-wrapper delete-leave' onClick={handleLeaveChannel}>
+          <p>Leave Channel</p>
+        </div>
+      )}
       <div className='edit-channel__button-wrapper' onClick={updateChannel}>
         <p>Save Changes</p>
-      </div>
-      <div className='edit-channel__button-wrapper' onClick={leaveChannel}>
-        <p>{isOwner ? 'Delete Channel' : 'Leave Channel'}</p>
       </div>
     </div>
   );
 };
-
 
 export default EditChannel;

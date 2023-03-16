@@ -24,6 +24,8 @@ const EditChannel = ({ setIsEditing }) => {
   const { channel, client } = useChatContext();
   const [channelName, setChannelName] = useState(channel?.data?.name);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const userId = client.userID;
+  const isOwner = channel?.data?.created_by?.id === userId;
 
   const updateChannel = async (event) => {
     event.preventDefault();
@@ -44,10 +46,14 @@ const EditChannel = ({ setIsEditing }) => {
   };
 
   const leaveChannel = async () => {
-    const confirmed = window.confirm('Are you sure you want to leave/delete this channel?');
-    if (!confirmed) return;
+    if (isOwner) {
+      const confirmed = window.confirm('Are you sure you want to delete this channel?');
+      if (!confirmed) return;
 
-    await client.channel(channel.type, channel.id).removeMembers([client.userID]);
+      await client.channel(channel.type, channel.id).delete();
+    } else {
+      await client.channel(channel.type, channel.id).removeMembers([client.userID]);
+    }
 
     setIsEditing(false);
     // Navigate to a different channel or page
@@ -65,10 +71,11 @@ const EditChannel = ({ setIsEditing }) => {
         <p>Save Changes</p>
       </div>
       <div className='edit-channel__button-wrapper' onClick={leaveChannel}>
-        <p>Leave/Delete Channel</p>
+        <p>{isOwner ? 'Delete Channel' : 'Leave Channel'}</p>
       </div>
     </div>
   );
 };
+
 
 export default EditChannel;

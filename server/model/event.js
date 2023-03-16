@@ -24,6 +24,10 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    _private:
+    {
+        type: Boolean
+    },
     color:
     {
         type: String

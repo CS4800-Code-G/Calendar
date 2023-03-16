@@ -97,13 +97,14 @@ const Calendar = (user) => {
                     onClose={() => {
                         setClicked(null)
                     }}
-                    onSave={(eventTitleInput, startTimeInput, endTimeInput, locationInput, colorInput) => {
+                    onSave={(eventTitleInput, startTimeInput, endTimeInput, locationInput, privateInput, colorInput) => {
                         const event = {
                             date: clicked,
                             title: eventTitleInput,
                             startTime: startTimeInput,
                             endTime: endTimeInput,
                             location: locationInput,
+                            _private: privateInput,
                             color: colorInput
                         }
                         createEvent(event)

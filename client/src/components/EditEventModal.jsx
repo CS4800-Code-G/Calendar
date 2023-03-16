@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStartTime, eventEndTime, eventLocation, eventColor, setCurrentColor }) => {
+export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStartTime, eventEndTime, eventLocation, eventPrivate, eventColor, setCurrentColor }) => {
     const [eventTitleInput, setEventTitleInput] = useState(eventText);
     const [startTimeInput, setStartTimeInput] = useState(eventStartTime);
     const [endTimeInput, setEndTimeInput] = useState(eventEndTime);
     const [locationInput, setLocationInput] = useState(eventLocation);
+    const [privateInput, setPrivateInput] = useState(!!eventPrivate);
     const [colorInput, setColorInput] = useState(eventColor);
     const [eventError, setEventError] = useState(false);
     const [startTimeError, setStartTimeError] = useState(false);
@@ -55,6 +56,15 @@ export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStar
                     placeholder="Location"
                 />
 
+                <input 
+                    checked={privateInput} 
+                    onChange={e => setPrivateInput(e.target.checked)} 
+                    id="privateInput"
+                    type="checkbox"
+                />
+                <label for='privateInput' className='privateInput-label'>Private</label>
+                <br></br>
+
                 <button 
                 onClick={() => {
                     if (eventTitleInput && startTimeInput && endTimeInput && locationInput) {
@@ -62,7 +72,7 @@ export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStar
                         setStartTimeError(false)
                         setEndTimeError(false)
                         setLocationError(false)
-                        onSave(eventTitleInput, startTimeInput, endTimeInput, locationInput, colorInput)
+                        onSave(eventTitleInput, startTimeInput, endTimeInput, locationInput, privateInput, colorInput)
                     } else {
                         if (!eventTitleInput) {
                             setEventError(true)

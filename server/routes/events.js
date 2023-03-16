@@ -25,6 +25,7 @@ router.post('/', async (req,res) => {
         startTime: req.body.startTime,
         endTime: req.body.endTime,
         location: req.body.location,
+        _private: req.body._private,
         color: req.body.color
     })
     try {
@@ -51,6 +52,9 @@ router.patch('/:id', getEvent, async (req,res) => {
     }
     if (req.body.location != null) {
         res.event.location = req.body.location
+    }
+    if (req.body._private != null) {
+        res.event._private = req.body._private
     }
     if (req.body.color != null) {
         res.event.color = req.body.color

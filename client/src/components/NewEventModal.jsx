@@ -5,6 +5,7 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
     const [startTimeInput, setStartTimeInput] = useState('');
     const [endTimeInput, setEndTimeInput] = useState('');
     const [locationInput, setLocationInput] = useState('');
+    const [privateInput, setPrivateInput] = useState(false);
     const [colorInput, setColorInput] = useState(currentColor);
     const [eventError, setEventError] = useState(false);
     const [startTimeError, setStartTimeError] = useState(false);
@@ -56,6 +57,15 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
                     placeholder="Location"
                 />
 
+                <input 
+                    checked={privateInput} 
+                    onChange={e => setPrivateInput(e.target.checked)} 
+                    id="privateInput"
+                    type="checkbox"
+                />
+                <label for='privateInput' className='privateInput-label'>Private</label>
+                <br></br>
+
                 <button 
                 onClick={() => {
                     if (eventTitleInput && startTimeInput && endTimeInput && locationInput) {
@@ -63,7 +73,7 @@ export const NewEventModal = ({ onSave, onClose, currentColor, setCurrentColor }
                         setStartTimeError(false)
                         setEndTimeError(false)
                         setLocationError(false)
-                        onSave(eventTitleInput, startTimeInput, endTimeInput, locationInput, colorInput)
+                        onSave(eventTitleInput, startTimeInput, endTimeInput, locationInput, privateInput, colorInput)
                     } else {
                         if (!eventTitleInput) {
                             setEventError(true)

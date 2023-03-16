@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Mina');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Assistant');
 :root {
     --primary-color: #005fff;
     --primary-color-alpha: #005fff1a;
@@ -440,7 +446,7 @@
   }
   
   .channel-list__header__text {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Montserrat";
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -865,7 +871,7 @@
   }
   
   .team-channel-header__name {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Open Sans";
     font-weight: bold;
     font-size: 18px;
     color: #2c2c30;
@@ -964,7 +970,7 @@
   }
   
   .team-channel-list__header__title {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Raleway";
     font-size: 13px;
     line-height: 16px;
     height: 16px;
@@ -1003,7 +1009,7 @@
   .channel-preview__item {
     display: flex;
     align-items: center;
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Assistant";
     font-size: 14px;
     color: #ffffff;
     padding: 0px 20px;
@@ -1043,6 +1049,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  .channel-preview__item-text {
+    font-family: "Assistant";
+  }
   
   .str-chat__message-team:hover {
     background: #e9e9ea;
@@ -1055,7 +1065,7 @@
   }
   
   .str-chat__message-team-content p {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: normal;
     line-height: 120%;
@@ -1093,7 +1103,7 @@
   }
   
   .str-chat__message-team-author strong {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Raleway";
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
@@ -1115,7 +1125,7 @@
     z-index: 2;
     display: flex;
     /* justify-content: flex-end; */
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -1858,11 +1868,14 @@
     border-radius: 5px;
     color: white;
   }
+  #nextButton, #backButton {
+    font-family: "Open Sans";
+  }
   #calendar-header {
     padding: 10px;
-    color: #d36c6c;
-    font-size: 26px; /* 26 */
-    font-family: sans-serif;
+    color: #d36c6c; /* #d36c6c */
+    font-size: 26px;
+    font-family: "Open Sans";
     display: flex;
     justify-content: space-between;
   }
@@ -1880,7 +1893,7 @@
   #weekdays div {
     width: 100px;
     padding: 10px;
-    font-family: Helvetica;
+    font-family: "Open Sans";
   }
   #calendar {
     width: 100%;
@@ -1900,6 +1913,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-family: "Assistant";
   }
   .day:hover {
     background-color: #e8faed;
@@ -1910,6 +1924,7 @@
   }
   .event {
     font-size: 10px;
+    font-family: "Assistant";
     padding: 3px;
     background-color: #58bae4;
     color: white;
@@ -1935,13 +1950,12 @@
     top: 100px;
     left: calc(50% - 175px);
     position: absolute;
-    font-family: sans-serif;
+    font-family: "Montserrat";
   }
   #eventTitleInput {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    /*margin-bottom: 25px;*/
     border-radius: 3px;
     outline: none;
     border: none;
@@ -2002,6 +2016,13 @@
     box-shadow: 0px 0px 3px gray;
     vertical-align: middle;
   }
+  #privateInput {
+    margin-bottom: 25px;
+    margin-right: 8px;
+  }
+  .privateInput-label {
+    font-family: "Assistant";
+  }
   #saveButton {
     margin-right: 2.5px;
     background-color: #92a1d1;
@@ -2014,18 +2035,6 @@
     border-radius: 5px;
     color: white;
     float: left;
-  }
-  #closeButton {
-    margin-left: 2.5px;
-    background-color: #92a1d1;
-    width: 75px;
-    cursor: pointer;
-    box-shadow: 0px 0px 2px gray;
-    border: none;
-    outline: none;
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
   }
   #deleteButton {
     margin-right: 2.5px;
@@ -2051,6 +2060,9 @@
     border-radius: 5px;
     color: white;
     float: right;
+  }
+  #saveButton, #deleteButton, #cancelButton {
+    font-family: "Open Sans";
   }
   #eventText {
     font-size: 14px;

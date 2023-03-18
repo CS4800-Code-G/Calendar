@@ -278,7 +278,7 @@
   }
   
   .channel-empty__first {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Poppins";
     font-weight: bold;
     font-size: 18px;
     line-height: 120%;
@@ -291,7 +291,7 @@
   }
   
   .channel-empty__second {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Poppins";
     font-size: 14px;
     line-height: 120%;
     margin: 0;
@@ -601,7 +601,7 @@
   }
   
   .create-channel__header p {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Poppins";
     font-weight: bold;
     font-size: 18px;
     line-height: 22px;
@@ -778,7 +778,7 @@
   }
   
   .edit-channel__header p {
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Poppins";
     font-weight: bold;
     font-size: 18px;
     line-height: 22px;

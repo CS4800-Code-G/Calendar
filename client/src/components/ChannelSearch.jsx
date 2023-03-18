@@ -26,7 +26,7 @@ const ChannelSearch = ({ setToggleContainer }) => {
                 members: { $in: [client.user.id]}
             })
             const userResponse = client.queryUsers({
-                id: { $ne: client.userID },
+                id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116'] },
                 name: { $autocomplete: text }
             })
 

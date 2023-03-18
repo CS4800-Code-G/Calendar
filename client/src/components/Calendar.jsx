@@ -14,6 +14,9 @@ const Calendar = (user) => {
     const { channel } = useChatContext()
     const members = Object.values(channel?.state?.members || {})
     const usernames = members.map(({ user }) => user.name).filter(user => user !== 'Personal')
+    if (usernames.length === 0) {
+        usernames.push(user.data.username)
+    }
 
     useEffect(() => {
         if (channel) {

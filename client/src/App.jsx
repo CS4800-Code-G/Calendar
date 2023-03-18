@@ -30,11 +30,18 @@ const App = () => {
     const [createType, setCreateType] = useState('')
     const [isCreating, setIsCreating] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
+    const [isSignup, setIsSignup] = useState(true)
+
+    const switchMode = () => {
+        setIsSignup((prevIsSignup) => !prevIsSignup)
+        console.log(isSignup)
+    }
+
     const data = {
         username: cookies.get('username'),
     }
 
-    if (!authToken) return <Auth />
+    if (!authToken) return <Auth isSignup={isSignup} switchMode={switchMode}/>
 
     return (
         <div className='app__wrapper'>
@@ -44,6 +51,9 @@ const App = () => {
                     setIsCreating = {setIsCreating}
                     setCreateType = {setCreateType}
                     setIsEditing = {setIsEditing}
+                    isSignup={isSignup}
+                    setIsSignup={setIsSignup}
+                    data={data}
                 />
                 <Calendar data={data}/>
                 <ChannelContainer

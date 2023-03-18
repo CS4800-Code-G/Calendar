@@ -15,9 +15,8 @@ const initialState = {
     avatarURL: '',
 }
 
-const Auth = () => {
+const Auth = ({ isSignup, switchMode }) => {
     const [form, setForm] = useState(initialState)
-    const [isSignup, setIsSignup] = useState(true)
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -66,10 +65,6 @@ const Auth = () => {
             .then(response => response.json())
             .then(data => {})
             .catch(error => console.error(error));
-    }
-
-    const switchMode = () => {
-        setIsSignup((prevIsSignup) => !prevIsSignup)
     }
 
     return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ChannelList, useChatContext } from 'stream-chat-react'
 import Cookies from 'universal-cookie'
 
-import { ChannelSearch, TeamChannelList, TeamChannelPreview } from './'
+import { ChannelSearch, PersonalChannel, TeamChannelList, TeamChannelPreview } from './'
 import CalendarIcon from '../assets/calendar.png'
 import LogoutIcon from '../assets/logout.png'
 
@@ -29,15 +29,31 @@ const CompanyHeader = () => (
     </div>
 )
 
+const customPersonalChannelFilter = (channels) => {
+    return channels.filter((channel) => {
+      if (channel.type !== 'messaging') {
+        return false;
+      }
+      const members = Object.values(channel.state.members || {});
+      return members.some((member) => member.user.id === '18c0d74c3413610d5f814f9964668116');
+    });
+  };
+
 const customChannelTeamFilter = (channels) => {
     return channels.filter((channel) => channel.type === 'team')
 }
 
 const customChannelMessagingFilter = (channels) => {
-    return channels.filter((channel) => channel.type === 'messaging')
+    return channels.filter((channel) => {
+        if (channel.type !== 'messaging') {
+          return false;
+        }
+        const members = Object.values(channel.state.members || {});
+        return !members.some((member) => member.user.id === '18c0d74c3413610d5f814f9964668116');
+      });
 }
 
-const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
+const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEditing, isSignup, setToggleContainer, data }) => {
     const { client } = useChatContext()
 
     const logout = () => {
@@ -52,6 +68,19 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
         window.location.reload()
     }
 
+    const createMessagingChannel = async () => {
+        try {
+          const channel = client.channel('messaging', { members: [client.userID, '18c0d74c3413610d5f814f9964668116'] })
+          await channel.create()
+        } catch (error) {
+          console.error('Error creating personal channel:', error)
+        }
+    }
+
+    if (isSignup && data.username !== 'Personal') {
+        createMessagingChannel()
+    }
+
     const filters = { members: { $in: [client.userID] } }
 
     return (
@@ -60,6 +89,25 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
             <div className='channel-list__list__wrapper'>
                 <CompanyHeader />
                 <ChannelSearch setToggleContainer={setToggleContainer}/>
+                <ChannelList
+                    filters={filters}
+                    channelRenderFilterFn={customPersonalChannelFilter}
+                    List={(listProps) => (
+                        <PersonalChannel 
+                            {...listProps}
+                            type='messaging'
+                        />
+                    )}
+                    Preview={(previewProps) => (
+                        <TeamChannelPreview 
+                            {...previewProps}
+                            setIsCreating={setIsCreating}
+                            setIsEditing={setIsEditing}
+                            setToggleContainer={setToggleContainer}
+                            type='messaging'
+                        />
+                    )}
+                />
                 <ChannelList
                     filters={filters}
                     channelRenderFilterFn={customChannelTeamFilter}
@@ -113,7 +161,7 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
     )
 }
 
-const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) => {
+const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isSignup, data}) => {
     const [toggleContainer, setToggleContainer] = useState(false)
 
     return (
@@ -123,6 +171,8 @@ const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) =>
                     setIsCreating={setIsCreating}
                     setCreateType={setCreateType}
                     setIsEditing={setIsEditing}
+                    isSignup={isSignup}
+                    data={data}
                 />
             </div>
 
@@ -135,6 +185,8 @@ const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) =>
                     setIsCreating={setIsCreating}
                     setCreateType={setCreateType}
                     setIsEditing={setIsEditing}
+                    isSignup={isSignup}
+                    data={data}
                     setToggleContainer={setToggleContainer}
                 />
             </div>

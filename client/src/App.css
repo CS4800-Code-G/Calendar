@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Mina');
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('https://fonts.googleapis.com/css?family=Assistant');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 :root {
-    --primary-color: #005fff;
-    --primary-color-alpha: #005fff1a;
+    --primary-color: #608cd4;
+    --primary-color-alpha: #608cd41a;
   }
   
   html,
@@ -33,7 +33,7 @@
     justify-content: center;
   
     padding: 2rem;
-    background: #005fff;
+    background: #608cd4;
   }
   
   .auth__form-container_image {
@@ -107,8 +107,8 @@
   
   .auth__form-container_fields-content_input input:focus,
   .auth__form-container_fields-content_input input:active {
-    box-shadow: 0px 0px 0px 1.5px #005fff;
-    border-color: #005fff;
+    box-shadow: 0px 0px 0px 1.5px #608cd4;
+    border-color: #608cd4;
   }
   
   .auth__form-container_fields-content_input-password {
@@ -126,8 +126,8 @@
   
   .auth__form-container_fields-content_button button {
     border-radius: 4px;
-    background: #005fff;
-    border: 1px solid #005fff;
+    background: #608cd4;
+    border: 1px solid #608cd4;
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 500;
@@ -483,13 +483,15 @@
     width: 32px;
     display: flex;
     justify-content: center;
+    margin-left: 10px;
+    margin-right: 5px;
   }
   
   .channel-search__input__text {
     background: none;
     border: none;
     color: #fff;
-    font-family: Helvetica Neue, sans-serif;
+    font-family: "Poppins";
     font-size: 16px;
     outline: none;
   }
@@ -1725,7 +1727,7 @@
     display: none;
     height: 50px;
     width: 50px;
-    background: #005fff;
+    background: #608cd4;
     position: absolute;
     right: -2%;
     top: 50%;
@@ -1840,11 +1842,13 @@
 
   #calendar-body{
     display: flex;
-    margin-top: 50px; /* 50 */
+    margin-top: 70px; /* 50 */
     justify-content: center;
-    background-color: #fcfeff; /*#fcfeff*/
     margin-left: 20px;
     margin-right: 20px;
+  }
+  #calendar-body, html, .padding {
+    background-color: #f5f3ef !important;
   }
   #nextButton {
     margin-left: 2.5px;
@@ -1873,14 +1877,15 @@
   }
   #calendar-header {
     padding: 10px;
-    color: #d36c6c; /* #d36c6c */
-    font-size: 26px;
-    font-family: "Open Sans";
+    color: #e0ba8f; /* #d36c6c */
+    font-size: 28px;
+    font-family: "Poppins";
+    font-weight: 600;
     display: flex;
     justify-content: space-between;
   }
   #calendar-header button {
-    background-color:#92a1d1;
+    background-color:#7ea0d6;
   }
   #calendar-container {
     width: 770px; /* 770 */
@@ -1916,7 +1921,7 @@
     font-family: "Assistant";
   }
   .day:hover {
-    background-color: #e8faed;
+    background-color: #ff8a242d;
   }
   
   .day + .currentDay {
@@ -1933,11 +1938,10 @@
     overflow: hidden;
   }
   .event:hover {
-    background-color: #b2d4c7 !important;
+    background-color: #daad5b88 !important;
   }
   .padding {
     cursor: default !important;
-    background-color: #fcfeff !important; /*#fcfeff*/
     box-shadow: none !important;
   }
   #eventModal {
@@ -1991,7 +1995,7 @@
     color: #8e8e8e
   }
   #eventTitleInput.error, #startTimeInput.error, #endTimeInput.error, #locationInput.error {
-    border: 2px solid red;
+    border: 2px solid #eb5454;
   }
   #locationInput {
     padding: 10px;
@@ -2025,7 +2029,7 @@
   }
   #saveButton {
     margin-right: 2.5px;
-    background-color: #92a1d1;
+    background-color: #7ea0d6;
     width: 75px;
     cursor: pointer;
     box-shadow: 0px 0px 2px gray;
@@ -2076,11 +2080,8 @@
     position: absolute;
     background-color: rgba(0,0,0,0.8);
   }
-  html {
-    background-color: #fcfeff;
-  }
 
 /*This changes the color of the leave/delete button for users*/
 .delete-leave p {
-  background-color: red;
+  background-color: #eb5454;
 }

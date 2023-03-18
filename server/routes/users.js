@@ -20,12 +20,7 @@ router.get('/:id', getUser, (req, res) => {
 // Creating one user
 router.post('/', async (req,res) => {
     const user = new User( {
-        _id: req.body._id,
-        fullName: req.body.fullName,
         username: req.body.username,
-        hashedPassword: req.body.hashedPassword,
-        phoneNumber: req.body.phoneNumber,
-        avatar: req.body.avatar
     })
     try {
         const newUser = await user.save()
@@ -37,23 +32,8 @@ router.post('/', async (req,res) => {
 
 // Updating one user
 router.patch('/:id', getUser, async (req,res) => {
-    if (req.body._id != null) {
-        res.user._id = req.body._id
-    }
-    if (req.body.fullName != null) {
-        res.user.fullName = req.body.fullName
-    }
     if (req.body.username != null) {
         res.user.username = req.body.username
-    }
-    if (req.body.hashedPassword != null) {
-        res.user.hashedPassword = req.body.hashedPassword
-    }
-    if (req.body.phoneNumber != null) {
-        res.user.phoneNumber = req.body.phoneNumber
-    }
-    if (req.body.avatar != null) {
-        res.user.avatar = req.body.avatar
     }
 
     try {

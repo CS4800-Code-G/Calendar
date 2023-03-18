@@ -62,7 +62,7 @@ export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStar
                     id="privateInput"
                     type="checkbox"
                 />
-                <label for='privateInput' className='privateInput-label'>Private</label>
+                <label htmlFor='privateInput' className='privateInput-label'>Private</label>
                 <br></br>
 
                 <button 

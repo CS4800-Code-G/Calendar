@@ -31,12 +31,7 @@ const App = () => {
     const [isCreating, setIsCreating] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const data = {
-        id: cookies.get('userId'),
         username: cookies.get('username'),
-        fullName: cookies.get('fullName'),
-        image: cookies.get('avatarURL'),
-        hashedPassword: cookies.get('hashedPassword'),
-        phoneNumber: cookies.get('phoneNumber'),
     }
 
     if (!authToken) return <Auth />

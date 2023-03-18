@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useChatContext } from 'stream-chat-react'
 import { CalendarHeader } from './CalendarHeader'
 import { Day } from './Day'
 import { NewEventModal } from './NewEventModal'
@@ -10,6 +11,9 @@ const Calendar = (user) => {
     const [events, setEvents] = useState([])
     const [eventFlag, setEventFlag] = useState(false);
     const [currentColor, setCurrentColor] = useState('#58bae4');
+    const { channel } = useChatContext()
+    const members = Object.values(channel?.state?.members || {})
+    const usernames = members.map(({ user }) => user.name)
 
     useEffect(() => {
         getEvents();
@@ -76,8 +80,8 @@ const Calendar = (user) => {
                             onClick={() => {
                                 if (d.value !== 'padding') {
                                     setClicked(d.date)
-                                    console.log(user.data.username) // user.data.<property> to access a specific property of the user
-                                    console.log(user)
+                                    console.log(user.data.username)
+                                    console.log(usernames)
                                     if (eventFlag === true) {
                                         setClicked(null)
                                     }

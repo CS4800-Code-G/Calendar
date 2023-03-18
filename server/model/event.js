@@ -31,6 +31,11 @@ const eventSchema = new mongoose.Schema({
     color:
     {
         type: String
+    },
+    attendees:
+    {
+        type: [String],
+        required: true
     }
 })
 

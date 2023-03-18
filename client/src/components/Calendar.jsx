@@ -9,22 +9,32 @@ const Calendar = (user) => {
     const [nav, setNav] = useState(0)
     const [clicked, setClicked] = useState()
     const [events, setEvents] = useState([])
-    const [eventFlag, setEventFlag] = useState(false);
-    const [currentColor, setCurrentColor] = useState('#58bae4');
+    const [eventFlag, setEventFlag] = useState(false)
+    const [currentColor, setCurrentColor] = useState('#58bae4')
     const { channel } = useChatContext()
     const members = Object.values(channel?.state?.members || {})
-    const usernames = members.map(({ user }) => user.name)
+    const usernames = members.map(({ user }) => user.name).filter(user => user !== 'Personal')
 
     useEffect(() => {
-        getEvents();
-    }, []);
+        if (channel) {
+            getEvents()
+        }
+    }, [channel])
     
     async function getEvents() {
         fetch('http://localhost:5000/events')
             .then(response => response.json())
             .then(data => {
-                setEvents(data);
-                console.log('Events:', data)
+                setEvents(data
+                    .filter(event => 
+                        event.attendees.some(attendeeName => usernames.includes(attendeeName))
+                    )
+                    .filter(event =>
+                        event.attendees.some(attendeeName => attendeeName === user.data.username)
+                        ^ (event.attendees.every(attendeeName => attendeeName !== user.data.username) && !event._private)
+                    )
+                )
+                console.log(data)
             })
             .catch(error => console.error(error));
     }
@@ -41,10 +51,10 @@ const Calendar = (user) => {
                 response.json()
             })
             .then(data => { 
-                console.log('Created event:', event);
+                console.log('Created event:', event)
                 getEvents();
              })
-            .catch(error => console.error(error));
+            .catch(error => console.error(error))
     }
 
     const { days, dateDisplay } = useDate(events, nav)
@@ -80,7 +90,7 @@ const Calendar = (user) => {
                             onClick={() => {
                                 if (d.value !== 'padding') {
                                     setClicked(d.date)
-                                    console.log(user.data.username)
+                                    //console.log(user.data.username)
                                     console.log(usernames)
                                     if (eventFlag === true) {
                                         setClicked(null)
@@ -109,7 +119,8 @@ const Calendar = (user) => {
                             endTime: endTimeInput,
                             location: locationInput,
                             _private: privateInput,
-                            color: colorInput
+                            color: colorInput,
+                            attendees: usernames
                         }
                         createEvent(event)
                         setClicked(null)

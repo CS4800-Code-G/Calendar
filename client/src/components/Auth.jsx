@@ -42,12 +42,10 @@ const Auth = ({ isSignup, switchMode }) => {
             cookies.set('phoneNumber', phoneNumber)
             cookies.set('avatarURL', avatarURL)
             cookies.set('hashedPassword', hashedPassword)
-            // Only send user info to database when registering an account
-
-            /** Send a POST fetch request here of user's userId,
-             *  fullName, username, hashedPassword, phoneNumber, and avatar.
-             * 
-             *  Look at server/model/user.js to see the user properties used */
+            const user = {
+                username: username
+            }
+            createUser(user)
         }
 
         window.location.reload()
@@ -103,7 +101,6 @@ const Auth = ({ isSignup, switchMode }) => {
                                     type='text'
                                     placeholder='Phone Number'
                                     onChange={handleChange}
-                                    required
                                 />
                             </div>
                         )}

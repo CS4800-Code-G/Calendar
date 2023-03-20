@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const path = require('path')
 
 const authRoutes = require('./routes/auth.js')
 
@@ -32,8 +33,20 @@ app.use('/events', eventsRouter)
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!')
+const _dirname = path.dirname('')
+const buildPath = path.join(_dirname, '../client/build')
+
+app.use(express.static(buildPath))
+
+app.get('/', function(req, res) {
+    res.sendFile(
+        path.join(__dirname, '../client/build/index.html'),
+        function (err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        }
+    )
 })
 
 app.post('/', (req, res) => {

@@ -21,7 +21,7 @@ const Calendar = (user) => {
   }
 
   useEffect(() => {
-    if (channel && user.data.name !== 'Personal') {
+    if (channel && user.data.username !== 'Personal') {
       getEvents();
     }
   }, [channel]);

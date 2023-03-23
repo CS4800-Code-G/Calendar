@@ -29,9 +29,19 @@ const CreateChannel = ({ createType, setIsCreating }) => {
         e.preventDefault()
 
         try {
-            const newChannel = await client.channel(createType, channelName, {
-                name: channelName, members: selectedUsers
+
+            const uuid = crypto.randomUUID();
+
+            const newChannel = await client.channel(createType, uuid, {
+                name: uuid, members: selectedUsers
             })
+
+            const channel = {
+                _id: uuid,
+                channelName: channelName
+            }
+
+            sendChannel(channel)
 
             await newChannel.watch()
 
@@ -43,6 +53,20 @@ const CreateChannel = ({ createType, setIsCreating }) => {
             console.log(error)
         }
     }
+
+    async function sendChannel(channel) {
+        fetch('http://localhost:5000/channels', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(channel)
+          })
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => console.error(error));
+    }
+
 
     return (
         <div className='create-channel__container'>

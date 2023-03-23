@@ -17,6 +17,7 @@ const initialState = {
 
 const Auth = ({ isSignup, switchMode }) => {
     const [form, setForm] = useState(initialState)
+    const [errorMessage, setErrorMessage] = useState(null)
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -29,26 +30,31 @@ const Auth = ({ isSignup, switchMode }) => {
 
         const URL = 'http://localhost:5000/auth'
 
-        const { data: { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-            username, password, fullName: form.fullName, phoneNumber, avatarURL,
-        })
+        try {
+            const { data: { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+                username, password, fullName: form.fullName, phoneNumber, avatarURL,
+            })
 
-        cookies.set('token', token)
-        cookies.set('username', username)
-        cookies.set('fullName', fullName)
-        cookies.set('userId', userId)
+            cookies.set('token', token)
+            cookies.set('username', username)
+            cookies.set('fullName', fullName)
+            cookies.set('userId', userId)
 
-        if (isSignup) {
-            cookies.set('phoneNumber', phoneNumber)
-            cookies.set('avatarURL', avatarURL)
-            cookies.set('hashedPassword', hashedPassword)
-            const user = {
-                username: username
+            if (isSignup) {
+                cookies.set('phoneNumber', phoneNumber)
+                cookies.set('avatarURL', avatarURL)
+                cookies.set('hashedPassword', hashedPassword)
+                const user = {
+                    username: username
+                }
+                createUser(user)
             }
-            createUser(user)
-        }
+            setErrorMessage(null)
 
-        window.location.reload()
+            window.location.reload()
+        } catch (error) {
+            setErrorMessage('Your password is incorrect or this account doesn\'t exist.')
+        }
     }
 
     // Call this function to send POST request to database
@@ -70,6 +76,7 @@ const Auth = ({ isSignup, switchMode }) => {
             <div className='auth__form-container_fields'>
                 <div className='auth__form-container_fields-content'>
                     <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
+                    {errorMessage && !isSignup && <div className="auth__form-container_error-message">{errorMessage}</div>}
                     <form onSubmit={handleSubmit}>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>

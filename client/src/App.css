@@ -2096,3 +2096,10 @@ html,
 .delete-leave p {
   background-color: #eb5454;
 }
+.auth__form-container_error-message {
+  color: #eb5454;
+  font-family: "Assistant";
+  background-color: #f170704d;
+  padding: 10px;
+  border-radius: 5px;
+}

@@ -18,10 +18,6 @@ const signup = async (req, res) => {
         const serverClient = connect(api_key, api_secret, app_id)
         const client = StreamChat.getInstance(api_key, api_secret)
 
-        await client.updateAppSettings({
-            enforce_unique_usernames: 'app',
-        })
-
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const token = serverClient.createUserToken(userId)

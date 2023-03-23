@@ -20,24 +20,22 @@ const ChannelSearch = ({ setToggleContainer }) => {
 
     const getChannels = async (text) => {
         try {
-            const channelResponse = client.queryChannels({
-                type: 'team', 
-                name: { $autocomplete: text }, 
-                members: { $in: [client.user.id]}
-            })
-            const userResponse = client.queryUsers({
-                id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116', 'codeg', 'kims', 'jred'] },
-                name: { $autocomplete: text }
-            })
-
-            const [channels, { users }] = await Promise.all([channelResponse, userResponse])
-
-            if (channels.length) setTeamChannels(channels)
-            if (users.length) setDirectChannels(users)
+          const filter = {
+            type: 'team',
+            $or: [
+              { name: { $autocomplete: text } },
+              { members: { $in: [client.user.id] } },
+            ],
+          };
+          const sort = { last_message_at: -1 };
+          const channels = await client.queryChannels(filter, sort);
+          setTeamChannels(channels);
+          setDirectChannels([]);
         } catch (error) {
-            setQuery('')
+          setTeamChannels([]);
+          setDirectChannels([]);
         }
-    }
+      }
 
     const onSearch = (event) => {
         event.preventDefault()

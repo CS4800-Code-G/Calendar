@@ -44,7 +44,10 @@ const ChannelInner = ({ setIsEditing }) => {
 
 const TeamChannelHeader = ({ setIsEditing }) => {
     const { channel, watcher_count } = useChannelStateContext();
-    const { client } = useChatContext();
+    const { client } = useChatContext();5
+    const [channelName, setChannelName] = useState(null)
+
+    getChannelByID(channel?.data?.name)
   
     const MessagingHeader = () => {
         const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID);
@@ -67,13 +70,22 @@ const TeamChannelHeader = ({ setIsEditing }) => {
     
         return (
             <div className='team-channel-header__channel-wrapper'>
-            <p className='team-channel-header__name'># {channel.data.name}</p>
+            <p className='team-channel-header__name'># {channelName}</p>
             <span style={{ display: 'flex' }} onClick={() => setIsEditing(true)}>
                 <ChannelInfo />
             </span>
             </div>
         );
     };
+
+    async function getChannelByID(id) {
+        fetch('http://localhost:5000/channels/' + id)
+            .then(response => response.json())
+            .then(channel => {
+                setChannelName(channel.channelName)
+            })
+            .catch(error => console.error(error));
+    }
   
     const getWatcherText = (watchers) => {
         if (!watchers) return 'No users online';

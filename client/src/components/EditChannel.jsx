@@ -20,6 +20,30 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
   );
 };
 
+async function updateChannel(id, updatedChannel) {
+  fetch(`http://localhost:5000/channels/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedChannel)
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to update event');
+      }
+      return response.json();
+  })
+  .then(updatedChannel => {
+      console.log('Updated channel:', updatedChannel);
+  })
+  .catch(error => {
+      console.error(error);
+  });
+}
+
+
+
 const EditChannel = ({ setIsEditing }) => {
   const { channel, client } = useChatContext();
   const [channelName, setChannelName] = useState(channel?.data?.name);

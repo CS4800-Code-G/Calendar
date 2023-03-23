@@ -17,6 +17,9 @@ router.get('/:id', getUser, (req, res) => {
     res.send(res.user)
 })
 
+//Alias for chat name
+
+
 // Creating one user
 router.post('/', async (req,res) => {
     const user = new User( {
@@ -58,7 +61,7 @@ router.delete('/:id', getUser, async (req,res) => {
 async function getUser(req, res, next) {
     let user;
     try {
-        user = await User.findById(req.params._id)
+        user = await User.findById(req.params.id)
         if (user == null) {
             return res.status(404).json({ message: 'Cannot find user' })
         }

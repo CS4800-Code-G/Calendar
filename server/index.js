@@ -31,6 +31,9 @@ app.use('/events', eventsRouter)
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
+const channelsRouter = require('./routes/channels')
+app.use('/channels', channelsRouter)
+
 const _dirname = path.dirname('')
 const buildPath = path.join(_dirname, '../client/build')
 

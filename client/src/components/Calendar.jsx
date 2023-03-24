@@ -47,7 +47,7 @@ const Calendar = (user) => {
                 ) && !event._private)
             )
         );
-        console.log(data);
+        //console.log("Events: " + data);
       })
       .catch((error) => console.error(error));
   }

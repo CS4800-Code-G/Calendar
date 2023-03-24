@@ -12,15 +12,12 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Getting user by id
+// Getting a user by id
 router.get('/:id', getUser, (req, res) => {
     res.send(res.user)
 })
 
-//Alias for chat name
-
-
-// Creating one user
+// Creating a user
 router.post('/', async (req,res) => {
     const user = new User( {
         username: req.body.username,
@@ -33,7 +30,7 @@ router.post('/', async (req,res) => {
     }
 })
 
-// Updating one user
+// Updating a user
 router.patch('/:id', getUser, async (req,res) => {
     if (req.body.username != null) {
         res.user.username = req.body.username
@@ -48,7 +45,7 @@ router.patch('/:id', getUser, async (req,res) => {
     
 })
 
-// Deleting one user
+// Deleting a user
 router.delete('/:id', getUser, async (req,res) => {
     try {
         const deletedUser = await res.user.deleteOne()

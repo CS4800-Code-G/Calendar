@@ -32,16 +32,11 @@ const App = () => {
     const [isEditing, setIsEditing] = useState(false)
     const [isSignup, setIsSignup] = useState(true)
 
-    const switchMode = () => {
-        setIsSignup((prevIsSignup) => !prevIsSignup)
-        console.log(isSignup)
-    }
-
     const data = {
         username: cookies.get('username'),
     }
 
-    if (!authToken) return <Auth isSignup={isSignup} switchMode={switchMode}/>
+    if (!authToken) return <Auth isSignup={isSignup} setIsSignup={setIsSignup}/>
 
     return (
         <div className='app__wrapper'>

@@ -2096,12 +2096,36 @@ html,
 .delete-leave p {
   background-color: #eb5454;
 }
+
 .auth__form-container_error-message {
   color: #eb5454;
+  border: 1px solid #eb5454;
   font-family: "Assistant";
   background-color: #f170704d;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
+  width: 84%;
+}
+
+.auth__form-container_fields-content_username-check span {
+  display: block;
+  margin-top: 5px;
+  border-radius: 3px;
+  padding-left: 3px;
+  font-family: "Assistant";
+  width: 86.8%;
+}
+
+.auth__form-container_fields-content_username-check span.red {
+  color: #eb5454;
+  border: 1px solid #eb5454;
+  background-color: #f170704d;
+}
+
+.auth__form-container_fields-content_username-check span.green {
+  color: #28a745;
+  border: 1px solid #28a745;
+  background-color: #28a7454d;
 }
 
 

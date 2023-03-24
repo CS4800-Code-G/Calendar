@@ -2,12 +2,22 @@ const express = require('express')
 const router = express.Router()
 const Channel = require('../model/channel')
 
-// Getting one channel by id
+// Getting all channels
+router.get('/', async (req, res) => {
+    try {
+        const channels = await Channel.find()
+        res.json(channels)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+// Getting a channel by id
 router.get('/:id', getChannel, (req, res) => {
     res.send(res.channel)
 })
 
-// Creating one channel
+// Creating a channel
 router.post('/', async (req,res) => {
     const channel = new Channel( {
         _id: req.body._id,
@@ -21,7 +31,7 @@ router.post('/', async (req,res) => {
     }
 })
 
-// Updating one channel
+// Updating a channel
 router.patch('/:id', getChannel, async (req,res) => {
     if (req.body._id != null) {
         res.channel._id = req.body._id
@@ -37,7 +47,7 @@ router.patch('/:id', getChannel, async (req,res) => {
     }
 })
 
-// Deleting one channel
+// Deleting a channel
 router.delete('/:id', getChannel, async (req,res) => {
     try {
         const deletedChannel = await res.channel.deleteOne()

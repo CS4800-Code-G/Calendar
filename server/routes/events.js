@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Getting one event by id
+// Getting an event by id
 router.get('/:id', getEvent, (req, res) => {
     res.send(res.event)
 })
 
-// Creating one event
+// Creating an event
 router.post('/', async (req,res) => {
     const event = new Event( {
         date: req.body.date,
@@ -37,7 +37,7 @@ router.post('/', async (req,res) => {
     }
 })
 
-// Updating one event
+// Updating an event
 router.patch('/:id', getEvent, async (req,res) => {
     if (req.body.title != null) {
         res.event.title = req.body.title
@@ -73,7 +73,7 @@ router.patch('/:id', getEvent, async (req,res) => {
     
 })
 
-// Deleting one event
+// Deleting an event
 router.delete('/:id', getEvent, async (req,res) => {
     try {
         const deletedEvent = await res.event.deleteOne()

@@ -20,15 +20,11 @@ const ChannelSearch = ({ setToggleContainer }) => {
 
     const getChannels = async (text) => {
         try {
-            const filter = {
-                type: 'team',
-                $or: [
-                  { name: { $autocomplete: text } },
-                  { members: { $in: [client.user.id] } },
-                ],
-              };
-              const sort = { last_message_at: -1 };
-              const channelResponse = await client.queryChannels(filter, sort);
+            const channelResponse = client.queryChannels({
+                type: 'team', 
+                name: { $autocomplete: text }, 
+                members: { $in: [client.user.id]}
+            }) 
             const userResponse = client.queryUsers({
                 id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116', 'codeg', 'kims', 'jred'] },
                 name: { $autocomplete: text }

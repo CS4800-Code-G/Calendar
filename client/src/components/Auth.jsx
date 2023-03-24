@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
@@ -15,12 +15,44 @@ const initialState = {
     avatarURL: '',
 }
 
-const Auth = ({ isSignup, switchMode }) => {
+const Auth = ({ isSignup, setIsSignup }) => {
     const [form, setForm] = useState(initialState)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [usernames, setUsernames] = useState([])
+    const [usernameExists, setUsernameExists] = useState(false)
+    const [usernameMessage, setUsernameMessage] = useState(null)
+    const [signupErrorMessage, setSignupErrorMessage] = useState(null)
+    const [loginErrorMessage, setLoginErrorMessage] = useState(null)
+
+    useEffect(() => {
+        getUsers()
+    }, [])
+
+    useEffect(() => {
+        checkUsername(form.username)
+    }, [form])
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
+        if (isSignup && e.target.name === 'username') {
+            checkUsername(e.target.value)
+        }
+    }
+
+    function checkUsername(username) {
+        if (!/^[a-zA-Z0-9]+$/.test(username)) {
+            setUsernameExists(true)
+            setUsernameMessage('Username can only contain letters and numbers')
+        } else if (username.length > 20) {
+            setUsernameExists(true)
+            setUsernameMessage('Must be between 1 and 20 characters in length')
+        } else if (username !== '') {
+            setUsernameExists(usernames.includes(username))
+            if (usernameExists) {
+                setUsernameMessage(`Username '${form.username}' not available`)
+            } else {
+                setUsernameMessage(`Username '${form.username}' is available`)
+            }
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -34,6 +66,18 @@ const Auth = ({ isSignup, switchMode }) => {
             const { data: { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
                 username, password, fullName: form.fullName, phoneNumber, avatarURL,
             })
+
+            if (isSignup) {
+                if (!/^[a-zA-Z0-9]+$/.test(form.username)) {
+                    throw 'Username can only contain letters and numbers.'
+                } else if (username.length > 20) {
+                    throw 'Username must be between 1 and 20 characters in length'
+                } else if (usernameExists) {
+                    throw 'This username is already taken.'
+                } else if (form.password !== form.confirmPassword) {
+                    throw 'Passwords do not match.'
+                } 
+            }
 
             cookies.set('token', token)
             cookies.set('username', username)
@@ -49,13 +93,34 @@ const Auth = ({ isSignup, switchMode }) => {
                 }
                 createUser(user)
             }
-            setErrorMessage(null)
+
+            setSignupErrorMessage(null)
+            setLoginErrorMessage(null)
 
             window.location.reload()
         } catch (error) {
-            setErrorMessage('Your password is incorrect or this account doesn\'t exist.')
+            if (isSignup) {
+                setSignupErrorMessage(error)
+            } else {
+                setLoginErrorMessage('Your password is incorrect or this account doesn\'t exist.')
+            }
         }
     }
+
+    const switchMode = () => {
+        setIsSignup((prevIsSignup) => !prevIsSignup)
+        setSignupErrorMessage(null)
+        setLoginErrorMessage(null)
+    }
+
+    async function getUsers() {
+        fetch("http://localhost:5000/users")
+            .then((response) => response.json())
+            .then((data) => {
+                setUsernames(() => data.map(user => user.username))
+            })
+            .catch((error) => console.error(error));
+      }
 
     // Call this function to send POST request to database
     async function createUser(user) {
@@ -76,7 +141,8 @@ const Auth = ({ isSignup, switchMode }) => {
             <div className='auth__form-container_fields'>
                 <div className='auth__form-container_fields-content'>
                     <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
-                    {errorMessage && !isSignup && <div className="auth__form-container_error-message">{errorMessage}</div>}
+                    {signupErrorMessage && isSignup && <div className="auth__form-container_error-message">{signupErrorMessage}</div>}
+                    {loginErrorMessage && !isSignup && <div className="auth__form-container_error-message">{loginErrorMessage}</div>}
                     <form onSubmit={handleSubmit}>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>
@@ -99,6 +165,12 @@ const Auth = ({ isSignup, switchMode }) => {
                                     onChange={handleChange}
                                     required
                                 />
+                                {isSignup && form.username !== '' && 
+                                    <div className='auth__form-container_fields-content_username-check'>
+                                        {usernameExists && <span className='red'>{usernameMessage}</span>}
+                                        {!usernameExists && <span className='green'>{usernameMessage}</span>}
+                                    </div>
+                                }
                             </div>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>

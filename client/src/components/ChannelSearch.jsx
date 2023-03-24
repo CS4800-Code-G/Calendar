@@ -20,20 +20,26 @@ const ChannelSearch = ({ setToggleContainer }) => {
 
     const getChannels = async (text) => {
         try {
-          const filter = {
-            type: 'team',
-            $or: [
-              { name: { $autocomplete: text } },
-              { members: { $in: [client.user.id] } },
-            ],
-          };
-          const sort = { last_message_at: -1 };
-          const channels = await client.queryChannels(filter, sort);
-          setTeamChannels(channels);
-          setDirectChannels([]);
+            const filter = {
+                type: 'team',
+                $or: [
+                  { name: { $autocomplete: text } },
+                  { members: { $in: [client.user.id] } },
+                ],
+              };
+              const sort = { last_message_at: -1 };
+              const channelResponse = await client.queryChannels(filter, sort);
+            const userResponse = client.queryUsers({
+                id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116', 'codeg', 'kims', 'jred'] },
+                name: { $autocomplete: text }
+            })
+
+            const [channels, { users }] = await Promise.all([channelResponse, userResponse])
+
+            if (channels.length) setTeamChannels(channels)
+            if (users.length) setDirectChannels(users)
         } catch (error) {
-          setTeamChannels([]);
-          setDirectChannels([]);
+            setQuery('')
         }
       }
 

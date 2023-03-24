@@ -44,7 +44,7 @@ const ChannelInner = ({ setIsEditing }) => {
 
 const TeamChannelHeader = ({ setIsEditing }) => {
     const { channel, watcher_count } = useChannelStateContext();
-    const { client } = useChatContext();5
+    const { client } = useChatContext();
     const [channelName, setChannelName] = useState(null)
 
     getChannelByID(channel?.data?.name)

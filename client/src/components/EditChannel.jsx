@@ -98,7 +98,7 @@ const EditChannel = ({ setIsEditing }) => {
     const confirmed = window.confirm('Are you sure you want to leave this channel?');
     if (!confirmed) return;
 
-    await client.channel(channel.type, channel.id).delete({hard_delete: true});
+    await client.channel(channel.type, channel.id).removeMembers([client.userID]);
     setIsEditing(false);
     // Navigate to a different channel or page
   };

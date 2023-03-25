@@ -119,9 +119,11 @@ const ChannelListContent = ({
     }
   };
 
-  if (data.username !== "Personal") {
-    createMessagingChannel()
-  }
+  useEffect(() => {
+    if (data.username !== "Personal") {
+      createMessagingChannel()
+    }
+  }, [])
 
   const filters = { members: { $in: [client.userID] } };
 

@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
 import { Avatar, useChatContext } from 'stream-chat-react'
 
-const TeamChannelPreview = ({ channel, type, setIsCreating, setIsEditing, setToggleContainer, setActiveChannel }) => {
+const TeamChannelPreview = ({ channel, type, setIsCreating, setIsEditing, setToggleContainer, setActiveChannel, teamChannelHashTable }) => {
     const { channel: activeChannel, client } = useChatContext()
-    const [channelName, setChannelName] = useState(null)
-
-    getChannelByID(channel?.data?.name)
-
 
     const ChannelPreview = () => (
         <p className='channel-preview__item'>
-            # {channelName}
+            # {teamChannelHashTable[channel?.data?.name]}
         </p>
-    )
-    
+    )  
 
     const DirectPreview = () => {
         const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID)
@@ -28,15 +23,6 @@ const TeamChannelPreview = ({ channel, type, setIsCreating, setIsEditing, setTog
                 <p className='channel-preview__item-text'>{members[0]?.user?.fullName || members[0]?.user?.id}</p>
             </div>
         )
-    }
-
-    async function getChannelByID(id) {
-        fetch('http://localhost:5000/channels/' + id)
-            .then(response => response.json())
-            .then(channel => {
-                setChannelName(channel.channelName)
-            })
-            .catch(error => console.error(error));
     }
 
     return (

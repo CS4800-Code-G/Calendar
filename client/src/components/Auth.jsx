@@ -18,7 +18,7 @@ const initialState = {
 const Auth = ({ isSignup, setIsSignup }) => {
     const [form, setForm] = useState(initialState)
     const [usernames, setUsernames] = useState([])
-    const [usernameExists, setUsernameExists] = useState(false)
+    const [usernameInvalid, setUsernameInvalid] = useState(false)
     const [usernameMessage, setUsernameMessage] = useState(null)
     const [signupErrorMessage, setSignupErrorMessage] = useState(null)
     const [loginErrorMessage, setLoginErrorMessage] = useState(null)
@@ -40,14 +40,14 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
     function checkUsername(username) {
         if (!/^[a-zA-Z0-9]+$/.test(username)) {
-            setUsernameExists(true)
+            setUsernameInvalid(true)
             setUsernameMessage('Username can only contain letters and numbers')
         } else if (username.length > 20) {
-            setUsernameExists(true)
+            setUsernameInvalid(true)
             setUsernameMessage('Must be between 1 and 20 characters in length')
         } else if (username !== '') {
-            setUsernameExists(usernames.includes(username))
-            if (usernameExists) {
+            setUsernameInvalid(usernames.includes(username))
+            if (usernameInvalid) {
                 setUsernameMessage(`Username '${form.username}' not available`)
             } else {
                 setUsernameMessage(`Username '${form.username}' is available`)
@@ -69,13 +69,13 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
             if (isSignup) {
                 if (!/^[a-zA-Z0-9]+$/.test(form.username)) {
-                    throw 'Username can only contain letters and numbers.'
+                    throw new Error('Username can only contain letters and numbers.')
                 } else if (username.length > 20) {
-                    throw 'Username must be between 1 and 20 characters in length'
-                } else if (usernameExists) {
-                    throw 'This username is already taken.'
+                    throw new Error('Username must be between 1 and 20 characters in length')
+                } else if (usernameInvalid) {
+                    throw new Error('This username is already taken.')
                 } else if (form.password !== form.confirmPassword) {
-                    throw 'Passwords do not match.'
+                    throw new Error('Passwords do not match.')
                 } 
             }
 
@@ -100,7 +100,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
             window.location.reload()
         } catch (error) {
             if (isSignup) {
-                setSignupErrorMessage(error)
+                setSignupErrorMessage(error.message)
             } else {
                 setLoginErrorMessage('Your password is incorrect or this account doesn\'t exist.')
             }
@@ -167,8 +167,8 @@ const Auth = ({ isSignup, setIsSignup }) => {
                                 />
                                 {isSignup && form.username !== '' && 
                                     <div className='auth__form-container_fields-content_username-check'>
-                                        {usernameExists && <span className='red'>{usernameMessage}</span>}
-                                        {!usernameExists && <span className='green'>{usernameMessage}</span>}
+                                        {usernameInvalid && <span className='red'>{usernameMessage}</span>}
+                                        {!usernameInvalid && <span className='green'>{usernameMessage}</span>}
                                     </div>
                                 }
                             </div>

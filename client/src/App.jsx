@@ -31,6 +31,7 @@ const App = () => {
     const [isCreating, setIsCreating] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isSignup, setIsSignup] = useState(true)
+    const [teamChannelHashTable, setTeamChannelHashTable] = useState({})
 
     const data = {
         username: cookies.get('username'),
@@ -42,21 +43,22 @@ const App = () => {
         <div className='app__wrapper'>
             <Chat client={client} theme='team light'>
                 <ChannelListContainer
-                    isCreating = {isCreating}
-                    setIsCreating = {setIsCreating}
-                    setCreateType = {setCreateType}
-                    setIsEditing = {setIsEditing}
-                    isSignup={isSignup}
-                    setIsSignup={setIsSignup}
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType}
+                    setIsEditing={setIsEditing}
+                    teamChannelHashTable={teamChannelHashTable}
+                    setTeamChannelHashTable={setTeamChannelHashTable}
                     data={data}
                 />
                 <Calendar data={data}/>
                 <ChannelContainer
-                    isCreating = {isCreating}
-                    setIsCreating = {setIsCreating}
-                    isEditing = {isEditing}
-                    setIsEditing = {setIsEditing}
-                    createType = {createType}
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                    createType={createType}
+                    teamChannelHashTable={teamChannelHashTable}
                 />
             </Chat>
         </div>

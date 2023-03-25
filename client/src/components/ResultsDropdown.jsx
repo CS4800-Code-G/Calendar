@@ -19,7 +19,7 @@ const channelByUser = async ({ client, setActiveChannel, channel, setChannel }) 
     return setActiveChannel(newChannel);
 };
 
-const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer }) => {
+const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer, teamChannelHashTable }) => {
     const { client, setActiveChannel } = useChatContext();
 
     if (type === 'channel') {
@@ -34,7 +34,7 @@ const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer
                 className={focusedId === channel.id ? 'channel-search__result-container__focused' : 'channel-search__result-container' }
             >
                 <div className='result-hashtag'>#</div>
-                <p className='channel-search__result-text'>{channel.data.name}</p>
+                <p className='channel-search__result-text'>{teamChannelHashTable[channel.data.name]}</p>
             </div>
         );
     }
@@ -57,7 +57,7 @@ const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer
     );
 };
 
-const ResultsDropdown = ({ teamChannels, directChannels, focusedId, loading, setChannel, setToggleContainer }) => {
+const ResultsDropdown = ({ teamChannels, directChannels, focusedId, loading, setChannel, setToggleContainer, teamChannelHashTable }) => {
 
     return (
         <div className='channel-search__results'>
@@ -80,6 +80,7 @@ const ResultsDropdown = ({ teamChannels, directChannels, focusedId, loading, set
                 setChannel={setChannel}
                 type='channel'
                 setToggleContainer={setToggleContainer}
+                teamChannelHashTable={teamChannelHashTable}
             />
             ))
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import Cookies from "universal-cookie";
 
@@ -67,11 +67,34 @@ const ChannelListContent = ({
   setIsCreating,
   setCreateType,
   setIsEditing,
-  isSignup,
   setToggleContainer,
   data,
+  teamChannelHashTable,
+  setTeamChannelHashTable
 }) => {
   const { client } = useChatContext();
+
+  useEffect(() => {
+    const getChannels = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/channels")
+        const data = await response.json()
+
+        const teamChannelHashTable = {}
+        data.forEach((channel) => {
+          teamChannelHashTable[channel._id] = channel.channelName;
+        })
+        setTeamChannelHashTable(teamChannelHashTable)
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (client) {
+      getChannels();
+    }
+  }, [client]);
 
   const logout = () => {
     cookies.remove("token");
@@ -96,8 +119,8 @@ const ChannelListContent = ({
     }
   };
 
-  if (isSignup && data.username !== "Personal") {
-    createMessagingChannel();
+  if (data.username !== "Personal") {
+    createMessagingChannel()
   }
 
   const filters = { members: { $in: [client.userID] } };
@@ -107,7 +130,9 @@ const ChannelListContent = ({
       <SideBar logout={logout} />
       <div className="channel-list__list__wrapper">
         <CompanyHeader />
-        <ChannelSearch setToggleContainer={setToggleContainer} />
+        <ChannelSearch 
+          setToggleContainer={setToggleContainer}
+          teamChannelHashTable={teamChannelHashTable} />
         <ChannelList
           filters={filters}
           channelRenderFilterFn={customPersonalChannelFilter}
@@ -144,6 +169,7 @@ const ChannelListContent = ({
               setIsCreating={setIsCreating}
               setIsEditing={setIsEditing}
               setToggleContainer={setToggleContainer}
+              teamChannelHashTable={teamChannelHashTable}
               type="team"
             />
           )}
@@ -181,8 +207,9 @@ const ChannelListContainer = ({
   setCreateType,
   setIsCreating,
   setIsEditing,
-  isSignup,
   data,
+  teamChannelHashTable,
+  setTeamChannelHashTable
 }) => {
   const [toggleContainer, setToggleContainer] = useState(false);
 
@@ -193,7 +220,8 @@ const ChannelListContainer = ({
           setIsCreating={setIsCreating}
           setCreateType={setCreateType}
           setIsEditing={setIsEditing}
-          isSignup={isSignup}
+          teamChannelHashTable={teamChannelHashTable}
+          setTeamChannelHashTable={setTeamChannelHashTable}
           data={data}
         />
       </div>
@@ -215,8 +243,9 @@ const ChannelListContainer = ({
           setIsCreating={setIsCreating}
           setCreateType={setCreateType}
           setIsEditing={setIsEditing}
-          isSignup={isSignup}
           data={data}
+          teamChannelHashTable={teamChannelHashTable}
+          setTeamChannelHashTable={setTeamChannelHashTable}
           setToggleContainer={setToggleContainer}
         />
       </div>

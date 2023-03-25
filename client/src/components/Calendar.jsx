@@ -104,7 +104,7 @@ const Calendar = (user) => {
                   if (d.value !== "padding") {
                     setClicked(d.date);
                     //console.log(user.data.username)
-                    console.log(usernames);
+                    //console.log(usernames);
                     if (eventFlag === true) {
                       setClicked(null);
                     }

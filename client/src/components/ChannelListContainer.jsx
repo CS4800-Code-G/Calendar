@@ -69,6 +69,7 @@ const ChannelListContent = ({
   setIsEditing,
   setToggleContainer,
   data,
+  isSignup,
   teamChannelHashTable,
   setTeamChannelHashTable
 }) => {
@@ -120,7 +121,7 @@ const ChannelListContent = ({
   };
 
   useEffect(() => {
-    if (data.username !== "Personal") {
+    if (isSignup && data.username !== "Personal") {
       createMessagingChannel()
     }
   }, [])
@@ -210,6 +211,7 @@ const ChannelListContainer = ({
   setIsCreating,
   setIsEditing,
   data,
+  isSignup,
   teamChannelHashTable,
   setTeamChannelHashTable
 }) => {
@@ -225,6 +227,7 @@ const ChannelListContainer = ({
           teamChannelHashTable={teamChannelHashTable}
           setTeamChannelHashTable={setTeamChannelHashTable}
           data={data}
+          isSignup={isSignup}
         />
       </div>
 
@@ -246,6 +249,7 @@ const ChannelListContainer = ({
           setCreateType={setCreateType}
           setIsEditing={setIsEditing}
           data={data}
+          isSignup={isSignup}
           teamChannelHashTable={teamChannelHashTable}
           setTeamChannelHashTable={setTeamChannelHashTable}
           setToggleContainer={setToggleContainer}

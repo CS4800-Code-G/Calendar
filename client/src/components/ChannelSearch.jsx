@@ -18,16 +18,16 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
         }
     }, [query])
 
-    const getChannels = async (text) => {
+    const getChannels = async (channelText, userText) => {
         try {
             const channelResponse = client.queryChannels({
                 type: 'team', 
-                name: { $autocomplete: text }, 
+                name: { $autocomplete: channelText }, 
                 members: { $in: [client.user.id]}
             }) 
             const userResponse = client.queryUsers({
                 id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116', 'codeg', 'kims', 'jred'] },
-                name: { $autocomplete: text }
+                name: { $autocomplete: userText }
             })
 
             const [channels, { users }] = await Promise.all([channelResponse, userResponse])
@@ -38,13 +38,30 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
             setQuery('')
         }
       }
-
+      /*
     const onSearch = (event) => {
         event.preventDefault()
 
         setLoading(true)
         setQuery(event.target.value)
         getChannels(event.target.value)
+    }
+    */
+
+    const onSearch = (event) => {
+        event.preventDefault()
+    
+        setLoading(true)
+        const searchTerm = event.target.value
+        const pattern = new RegExp(`^${searchTerm}`, 'i')
+        const channelKey = Object.keys(teamChannelHashTable).find(key => pattern.test(key))
+        if (channelKey) {
+            setQuery(searchTerm)
+            getChannels(channelKey, searchTerm)
+        } else {
+            setQuery(searchTerm)
+            getChannels(searchTerm, searchTerm)
+        }
     }
 
     const setChannel = (channel) => {

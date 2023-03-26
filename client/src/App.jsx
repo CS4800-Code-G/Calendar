@@ -50,6 +50,7 @@ const App = () => {
                     teamChannelHashTable={teamChannelHashTable}
                     setTeamChannelHashTable={setTeamChannelHashTable}
                     data={data}
+                    isSignup={isSignup}
                 />
                 <Calendar data={data}/>
                 <ChannelContainer

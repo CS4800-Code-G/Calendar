@@ -17,7 +17,7 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
     if (isEditing) {
         return (
             <div className='channel__container'>
-                <EditChannel setIsEditing={setIsEditing} />
+                <EditChannel setIsEditing={setIsEditing} teamChannelHashTable={teamChannelHashTable} />
             </div>
         )
     }

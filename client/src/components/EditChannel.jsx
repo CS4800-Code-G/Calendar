@@ -20,7 +20,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
   );
 };
 
-async function updateChannel(id, updatedChannel) {
+async function updateChannelByID(id, updatedChannel) {
   fetch(`http://localhost:5000/channels/${id}`, {
       method: 'PATCH',
       headers: {
@@ -30,7 +30,7 @@ async function updateChannel(id, updatedChannel) {
   })
   .then(response => {
       if (!response.ok) {
-          throw new Error('Failed to update event');
+          throw new Error('Failed to update channel');
       }
       return response.json();
   })
@@ -42,11 +42,20 @@ async function updateChannel(id, updatedChannel) {
   });
 }
 
+async function deleteChannelById(id) {
+  fetch('http://localhost:5000/channels/' + id, {
+    method: 'DELETE',
+  })
+    .then(response => response.json())
+    .then(data => {})
+    .catch(error => {
+      console.error('Error deleting channel:', error)
+    })
+}
 
-
-const EditChannel = ({ setIsEditing }) => {
-  const { channel, client } = useChatContext();
-  const [channelName, setChannelName] = useState(channel?.data?.name);
+const EditChannel = ({ setIsEditing, teamChannelHashTable }) => {
+  const { channel, client, setActiveChannel } = useChatContext();
+  const [channelName, setChannelName] = useState(teamChannelHashTable[channel?.data?.name]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const currentUser = client.userID;
 
@@ -60,7 +69,7 @@ const EditChannel = ({ setIsEditing }) => {
     if (nameChanged) {
       const existingChannels = await client.queryChannels({
         type: channel.type,
-        name: channelName,
+        name: channel.id,
       });
   
       if (existingChannels.length) {
@@ -73,7 +82,11 @@ const EditChannel = ({ setIsEditing }) => {
         }
       }
   
-      await channel.update({ name: channelName }, { text: `Channel name changed to ${channelName}` });
+      updateChannelByID(channel.id, {
+        channelName: channelName
+      })
+      teamChannelHashTable[channel.id] = channelName
+      await channel.update({ name: channel.id }, { text: `Channel name changed to ${channelName}` });
     }
   
     if (selectedUsers.length) {
@@ -89,6 +102,7 @@ const EditChannel = ({ setIsEditing }) => {
     const confirmed = window.confirm('Are you sure you want to delete this channel? This cannot be undone.');
     if (!confirmed) return;
 
+    deleteChannelById(channel.id)
     await channel.delete();
     setIsEditing(false);
     // Navigate to a different channel or page

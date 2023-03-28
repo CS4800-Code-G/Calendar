@@ -22,7 +22,7 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
         try {
             const channelResponse = client.queryChannels({
                 type: 'team', 
-                name: { $autocomplete: channelText }, 
+                name: { $in: channelText }, 
                 members: { $in: [client.user.id]}
             }) 
             const userResponse = client.queryUsers({
@@ -48,21 +48,25 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
     }
     */
 
-    const onSearch = (event) => {
-        event.preventDefault()
-    
-        setLoading(true)
-        const searchTerm = event.target.value
-        const pattern = new RegExp(`^${searchTerm}`, 'i')
-        const channelKey = Object.keys(teamChannelHashTable).find(key => pattern.test(key))
-        if (channelKey) {
-            setQuery(searchTerm)
-            getChannels(channelKey, searchTerm)
+    const getKeyByValue = (obj, value) => {
+        const matchingEntries = Object.entries(obj).filter(entry => entry[1].match(new RegExp(`^${value}`, 'i')));
+        return matchingEntries.length ? matchingEntries.map(entry => entry[0]) : null;
+      }
+
+      const onSearch = (event) => {
+        event.preventDefault();
+      
+        setLoading(true);
+        const searchTerm = event.target.value;
+        const channelKeys = getKeyByValue(teamChannelHashTable, searchTerm)
+        if (channelKeys) {
+            setQuery(searchTerm);
+            getChannels(channelKeys, searchTerm)
         } else {
-            setQuery(searchTerm)
-            getChannels(searchTerm, searchTerm)
+            setQuery(searchTerm);
+            getChannels([searchTerm], searchTerm)
         }
-    }
+      }
 
     const setChannel = (channel) => {
         setQuery('')

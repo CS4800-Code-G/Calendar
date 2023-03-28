@@ -20,7 +20,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
     )
 }
 
-const CreateChannel = ({ createType, setIsCreating }) => {
+const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
     const { client, setActiveChannel } = useChatContext()
     const [selectedUsers, setSelectedUsers] = useState([client.userID || ''])
     const [channelName, setChannelName] = useState('')
@@ -41,6 +41,7 @@ const CreateChannel = ({ createType, setIsCreating }) => {
                 channelName: channelName
             }
 
+            teamChannelHashTable[uuid] = channelName
             sendChannel(channel)
 
             await newChannel.watch()

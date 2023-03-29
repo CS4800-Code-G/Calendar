@@ -48,9 +48,16 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
     }
     */
 
-    const getKeyByValue = (obj, value) => {
-        const matchingEntries = Object.entries(obj).filter(entry => entry[1].match(new RegExp(`^${value}`, 'i')));
-        return matchingEntries.length ? matchingEntries.map(entry => entry[0]) : null;
+    const escapeRegExp = (str) => {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+      
+      const getKeyByValue = (obj, value) => {
+        const escapedValue = escapeRegExp(value);
+        const matchingEntries = Object.entries(obj).filter(
+          (entry) => entry[1].match(new RegExp(`^${escapedValue}`, 'i'))
+        );
+        return matchingEntries.length ? matchingEntries.map((entry) => entry[0]) : null;
       }
 
       const onSearch = (event) => {

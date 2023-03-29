@@ -24,6 +24,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: row;
+  background-color: white;
 }
 
 .auth__form-container_fields {
@@ -39,7 +40,7 @@ body {
 .auth__form-container_image {
   flex: 3;
   display: flex;
-  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.05);
+  /*box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.05);*/
   height: 100%;
 }
 

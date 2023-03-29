@@ -32,6 +32,8 @@ const App = () => {
     const [isEditing, setIsEditing] = useState(false)
     const [isSignup, setIsSignup] = useState(true)
     const [teamChannelHashTable, setTeamChannelHashTable] = useState({})
+    const [query, setQuery] = useState('')
+    const [pcid, setPcid] = useState(null)
 
     const data = {
         username: cookies.get('username'),
@@ -51,6 +53,10 @@ const App = () => {
                     setTeamChannelHashTable={setTeamChannelHashTable}
                     data={data}
                     isSignup={isSignup}
+                    query={query}
+                    setQuery={setQuery}
+                    pcid={pcid}
+                    setPcid={setPcid}
                 />
                 <Calendar data={data}/>
                 <ChannelContainer
@@ -60,6 +66,8 @@ const App = () => {
                     setIsEditing={setIsEditing}
                     createType={createType}
                     teamChannelHashTable={teamChannelHashTable}
+                    setQuery={setQuery}
+                    pcid={pcid}
                 />
             </Chat>
         </div>

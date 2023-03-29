@@ -71,7 +71,11 @@ const ChannelListContent = ({
   data,
   isSignup,
   teamChannelHashTable,
-  setTeamChannelHashTable
+  setTeamChannelHashTable,
+  query,
+  setQuery,
+  pcid,
+  setPcid
 }) => {
   const { client } = useChatContext();
 
@@ -109,12 +113,13 @@ const ChannelListContent = ({
     window.location.reload();
   };
 
-  const createMessagingChannel = async () => {
+  const createPersonalChannel = async () => {
     try {
       const channel = client.channel("messaging", {
         members: [client.userID, "18c0d74c3413610d5f814f9964668116"],
       });
-      await channel.create();
+      await channel.create()
+      setPcid(channel.id)
     } catch (error) {
       console.error("Error creating personal channel:", error);
     }
@@ -122,9 +127,23 @@ const ChannelListContent = ({
 
   useEffect(() => {
     if (isSignup && data.username !== "Personal") {
-      createMessagingChannel()
+      client.queryChannels({
+        type: "messaging",
+        members: { $eq: [client.userID, "18c0d74c3413610d5f814f9964668116"] },
+      })
+      .then((channels) => {
+        if (channels.length > 0) {
+          const channel = channels[0]
+          setPcid(channel.id)
+        } else {
+          createPersonalChannel()
+        }
+      })
+      .catch((error) => {
+        console.error("Error querying channels:", error);
+      })
     }
-  }, [])
+  }, [pcid])
 
   const filters = { members: { $in: [client.userID] } };
 
@@ -135,7 +154,10 @@ const ChannelListContent = ({
         <CompanyHeader />
         <ChannelSearch 
           setToggleContainer={setToggleContainer}
-          teamChannelHashTable={teamChannelHashTable} />
+          teamChannelHashTable={teamChannelHashTable} 
+          query={query}
+          setQuery={setQuery}
+          />
         <ChannelList
           filters={filters}
           channelRenderFilterFn={customPersonalChannelFilter}
@@ -213,7 +235,11 @@ const ChannelListContainer = ({
   data,
   isSignup,
   teamChannelHashTable,
-  setTeamChannelHashTable
+  setTeamChannelHashTable,
+  query,
+  setQuery,
+  pcid,
+  setPcid
 }) => {
   const [toggleContainer, setToggleContainer] = useState(false);
 
@@ -228,6 +254,10 @@ const ChannelListContainer = ({
           setTeamChannelHashTable={setTeamChannelHashTable}
           data={data}
           isSignup={isSignup}
+          query={query}
+          setQuery={setQuery}
+          pcid={pcid}
+          setPcid={setPcid}
         />
       </div>
 
@@ -253,6 +283,10 @@ const ChannelListContainer = ({
           teamChannelHashTable={teamChannelHashTable}
           setTeamChannelHashTable={setTeamChannelHashTable}
           setToggleContainer={setToggleContainer}
+          query={query}
+          setQuery={setQuery}
+          pcid={pcid}
+          setPcid={setPcid}
         />
       </div>
     </>

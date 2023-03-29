@@ -53,13 +53,15 @@ async function deleteChannelById(id) {
     })
 }
 
-const EditChannel = ({ setIsEditing, teamChannelHashTable }) => {
+const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => {
   const { channel, client, setActiveChannel } = useChatContext();
   const [channelName, setChannelName] = useState(teamChannelHashTable[channel?.data?.name]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const currentUser = client.userID;
 
   const isOwner = channel?.data?.created_by?.id === currentUser;
+
+  console.log("Edit Channel: " + pcid)
 
   const updateChannel = async (event) => {
     event.preventDefault();
@@ -105,16 +107,21 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable }) => {
     deleteChannelById(channel.id)
     await channel.delete();
     setIsEditing(false);
-    // Navigate to a different channel or page
+    setQuery('')
+    // Navigate to personal channel
+    //const pc = {id: pcid} 
+    //setActiveChannel(pc)
   };
 
   const handleLeaveChannel = async () => {
     const confirmed = window.confirm('Are you sure you want to leave this channel?');
     if (!confirmed) return;
-
     await client.channel(channel.type, channel.id).removeMembers([client.userID]);
     setIsEditing(false);
-    // Navigate to a different channel or page
+    setQuery('')
+    // Navigate to personal channel
+    //const pc = {id: pcid} 
+    //setActiveChannel(pc)
   };
 
   return (

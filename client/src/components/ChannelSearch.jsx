@@ -4,9 +4,8 @@ import { useChatContext } from 'stream-chat-react'
 import { ResultsDropdown } from './'
 import { SearchIcon } from '../assets'
 
-const ChannelSearch = ({ setToggleContainer, teamChannelHashTable }) => {
+const ChannelSearch = ({ setToggleContainer, teamChannelHashTable, query, setQuery }) => {
     const { client, setActiveChannel } = useChatContext()
-    const [query, setQuery] = useState('')
     const [loading, setLoading] = useState(false)
     const [teamChannels, setTeamChannels] = useState([])
     const [directChannels, setDirectChannels] = useState([])

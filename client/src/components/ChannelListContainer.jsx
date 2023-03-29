@@ -123,6 +123,7 @@ const ChannelListContent = ({
 
   const settings = () => {
     setSettingsClicked(true)
+    setQuery('')
   }
 
   const createPersonalChannel = async () => {

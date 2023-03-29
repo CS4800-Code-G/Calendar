@@ -30,7 +30,12 @@ export const ProfileModal = ({ onSave, onClose, fullName, username, phoneNumber,
       <div id='profileModal'>
         <h2 className='profile_header'>Profile</h2>
         <div className='profile_avatar' style={{ margin: '0 auto' }}>
-          <Avatar image={updatedImage} size={75} />
+          <Avatar
+            image={updatedImage}
+            name={fullName}
+            size={75} 
+            onMouseOver={(e) => e.currentTarget.removeAttribute("title")}
+          />
         </div>
         <p className='profile_full-name'>{fullName}</p>
         <p className='profile_username'>@{username}</p>

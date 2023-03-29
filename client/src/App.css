@@ -45,6 +45,7 @@ body {
 .auth__form-container_image img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .auth__form-container_fields-content {

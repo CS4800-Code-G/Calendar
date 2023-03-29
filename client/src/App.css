@@ -2132,5 +2132,93 @@ html,
   border: 1px solid #28a745;
   background-color: #28a7454d;
 }
+#profileModal {
+  z-index: 5;
+  padding: 15px;
+  padding-top: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3px #cbd7df;
+  border-radius: 5px;
+  width: 250px;
+  top: 62px; /* 100 px */
+  left: 72px;
+  position: absolute;
+}
 
+.profile_header {
+  display: flex;
+  justify-content: left;
+  color: #1a1a1a;
+  margin-left: 5%;
+  font-family: "Montserrat";
+}
 
+.profile_avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.profile_full-name {
+  margin-top: 7px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat";
+}
+
+.profile_username {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  font-family: "Montserrat";
+}
+
+.profile_phone-number {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 2px gray;
+}
+
+.profile_avatar-url {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 2px gray;
+}
+
+.profile_phone-number::placeholder, .profile_avatar-url::placeholder {
+  color: #8e8e8e;
+}
+
+.profile_updated-message {
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  color: #1a1a1a;
+  z-index: 5;
+  font-family: "Open Sans";
+  font-size: 15px;
+  animation: fadeinout 3s ease-in-out forwards;
+}
+  
+@keyframes fadeinout {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}

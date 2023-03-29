@@ -34,7 +34,7 @@ const ChannelSearch = ({ setToggleContainer, teamChannelHashTable, query, setQue
             if (channels.length) setTeamChannels(channels)
             if (users.length) setDirectChannels(users)
         } catch (error) {
-            setQuery('')
+            //setQuery('')
         }
       }
       /*

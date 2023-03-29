@@ -61,7 +61,7 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
 
   const isOwner = channel?.data?.created_by?.id === currentUser;
 
-  console.log("Edit Channel: " + pcid)
+  //console.log("Edit Channel: " + pcid)
 
   const updateChannel = async (event) => {
     event.preventDefault();

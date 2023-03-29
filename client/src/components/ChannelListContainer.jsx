@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
+import { ProfileModal } from "./ProfileModal";
 import Cookies from "universal-cookie";
 
 import {
@@ -10,10 +11,11 @@ import {
 } from "./";
 import CalendarIcon from "../assets/calendar.png";
 import LogoutIcon from "../assets/logout.png";
+import SettingIcon from "../assets/setting.png"
 
 const cookies = new Cookies();
 
-const SideBar = ({ logout }) => (
+const SideBar = ({ logout, settings }) => (
   <div className="channel-list__sidebar">
     <div className="channel-list__sidebar__icon1">
       <div className="icon1__inner">
@@ -23,6 +25,11 @@ const SideBar = ({ logout }) => (
     <div className="channel-list__sidebar__icon2">
       <div className="icon1__inner" onClick={logout}>
         <img src={LogoutIcon} alt="Logout" title="Sign Out" width="40" />
+      </div>
+    </div>
+    <div className="channel-list__sidebar__icon2">
+      <div className="icon1__inner" onClick={settings}>
+        <img src={SettingIcon} alt="Settings" title="Settings" width="40" />
       </div>
     </div>
   </div>
@@ -78,6 +85,7 @@ const ChannelListContent = ({
   setPcid
 }) => {
   const { client } = useChatContext();
+  const [settingsClicked, setSettingsClicked] = useState(false)
 
   useEffect(() => {
     const getChannels = async () => {
@@ -112,6 +120,10 @@ const ChannelListContent = ({
 
     window.location.reload();
   };
+
+  const settings = () => {
+    setSettingsClicked(true)
+  }
 
   const createPersonalChannel = async () => {
     try {
@@ -149,7 +161,7 @@ const ChannelListContent = ({
 
   return (
     <>
-      <SideBar logout={logout} />
+      <SideBar logout={logout} settings={settings}/>
       <div className="channel-list__list__wrapper">
         <CompanyHeader />
         <ChannelSearch 
@@ -223,6 +235,29 @@ const ChannelListContent = ({
             />
           )}
         />
+        {
+          settingsClicked === true && (
+            <ProfileModal
+              fullName={client?.user?.fullName}
+              username={client?.user?.name}
+              phoneNumber={client?.user?.phoneNumber}
+              image={client?.user?.image}
+              onSave={(phoneNumber, image) => {
+                const update = {
+                  id: client.userID,
+                  set: {
+                      phoneNumber: phoneNumber,
+                      image: image
+                  }
+                }
+                client.partialUpdateUser(update)
+              }}
+              onClose={() => {
+                setSettingsClicked(false)
+              }}
+            />
+          )
+        }
       </div>
     </>
   );
@@ -242,6 +277,7 @@ const ChannelListContainer = ({
   setPcid
 }) => {
   const [toggleContainer, setToggleContainer] = useState(false);
+
 
   return (
     <>

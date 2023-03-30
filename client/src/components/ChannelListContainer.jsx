@@ -84,7 +84,7 @@ const ChannelListContent = ({
   pcid,
   setPcid
 }) => {
-  const { client } = useChatContext();
+  const { client, setActiveChannel } = useChatContext();
   const [settingsClicked, setSettingsClicked] = useState(false)
 
   useEffect(() => {
@@ -150,6 +150,8 @@ const ChannelListContent = ({
           setPcid(channel.id)
         } else {
           createPersonalChannel()
+          const pc = client.channel('messaging', pcid)
+          setActiveChannel(pc)
         }
       })
       .catch((error) => {

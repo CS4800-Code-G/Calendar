@@ -109,8 +109,8 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
     setIsEditing(false);
     setQuery('')
     // Navigate to personal channel
-    //const pc = {id: pcid} 
-    //setActiveChannel(pc)
+    const pc = client.channel('messaging', pcid)
+    setActiveChannel(pc)
   };
 
   const handleLeaveChannel = async () => {
@@ -120,8 +120,8 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
     setIsEditing(false);
     setQuery('')
     // Navigate to personal channel
-    //const pc = {id: pcid} 
-    //setActiveChannel(pc)
+    const pc = client.channel('messaging', pcid)
+    setActiveChannel(pc)
   };
 
   return (

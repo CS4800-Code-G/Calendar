@@ -7,7 +7,8 @@ const TeamChannelList = ({ children, error = false, loading, type, isCreating, s
         return type === 'team' ? (
             <div className='team-channel-list'>
                 <p className='team-channel-list__message'>
-                    Account not created, entered username is already taken.
+                    Congrats, you have discovered this secret message. Stream Chat API hard-sets a limit on the number of requests a user can make within a short period of time. 
+                    What this means is you're getting penalized, but don't worry, it'll go back to normal soon. Consider this a free-version feature, not a bug. - CodeG
                 </p>
             </div>
         ) : null

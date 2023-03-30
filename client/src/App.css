@@ -304,8 +304,6 @@ body {
 }
 
 .channel__container {
-  height: 100%;
-  width: 100%;
   background-color: #ffffff;
 }
 
@@ -1823,28 +1821,6 @@ div.rta__autocomplete.str-chat__emojisearch {
   }
 }
 
-@media screen and (max-width: 650px) {
-  .channerl-list__container-toggle {
-    right: -3%;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .channel-preview__item.multi {
-    width: 150px;
-  }
-
-  .channerl-list__container-toggle {
-    right: -5%;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .channel-list__sidebar {
-    display: none;
-  }
-}
-
 #calendar-body {
   display: flex;
   margin-top: 70px; /* 50 */
@@ -1949,7 +1925,7 @@ html,
 }
 
 /* Small devices (tablets) */
-@media only screen and (min-width: 576px) and (max-width: 767px) {
+@media only screen and (min-width: 576px) and(min-height:715px) and (max-width: 767px) {
   #calendar-body {
     display: flex;
     margin-top: 70px; /* 50 */
@@ -2004,7 +1980,7 @@ html,
 }
 
 /* Medium devices (desktops) */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and (min-width: 768px) and (max-width: 1399px) {
   #calendar-body {
     display: flex;
     margin-top: 70px; /* 50 */
@@ -2059,21 +2035,10 @@ html,
 }
 
 /* Large devices (desktops) */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-   
-  .day {
-    width: 80px;
-    height: 80px;
-    padding: 5px;
-    margin: 2px;
-  }
-}
-
-/* Medium devices (desktops) */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and (min-width: 1400px) and (max-width: 1599px) {
   #calendar-body {
     display: flex;
-    margin-top: 70px; /* 50 */
+    margin-top: 70px; 
     justify-content: center;
     margin-left: 20px;
     margin-right: 20px;
@@ -2116,80 +2081,59 @@ html,
     flex-wrap: wrap;
   }
   .day {
-    width: 80px;
-    height: 80px;
+    width: 105.5px;
+    height: 108px;
     padding: 5px;
     margin: 2px;
-
   }
+  .channel__container {
+    height: 100%;
+    width: 27%;
+    position: absolute;
+    right: 0;
+  }
+
 }
 
 /* Extra large devices (large desktops) */
-@media only screen and (min-width: 1200px) {
-  
-  .day {
-    width: 80px;
-    height: 80px;
-    padding: 5px;
-    margin: 2px;
-  }
-}
-
-/* Medium devices (desktops) */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  #calendar-body {
-    display: flex;
-    margin-top: 70px; /* 50 */
-    justify-content: center;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
+@media only screen and (min-width: 1600px) {
   #nextButton {
     margin-left: 2.5px;
     width: 75px;
     padding: 5px;
     border-radius: 5px;
   }
-  #backButton {
-    margin-right: 2.5px;
-    width: 75px;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  #calendar-header {
-    padding: 10px;
-    font-size: 28px;
-    display: flex;
-    justify-content: space-between;
-  }
 
   #calendar-container {
-    width: 770px; /* 770 */
+    width: 1000px; 
   }
   #weekdays {
-    width: 100%;
-    display: flex;
+    width: 105%;
   }
   #weekdays div {
-    width: 100px;
-    padding: 10px;
+    padding: 30px;
   }
+
   #calendar {
-    width: 100%;
+    width: 110%;
     margin: auto;
     display: flex;
-    flex-wrap: wrap;
   }
   .day {
-    width: 80px;
-    height: 80px;
+    width: 145px;
+    height: 145px;
     padding: 5px;
     margin: 2px;
 
   }
-}
 
+  .channel__container {
+    height: 100%;
+    width: 27.5%;
+    position: absolute;
+    right: 0;
+  }
+}
 
 
 

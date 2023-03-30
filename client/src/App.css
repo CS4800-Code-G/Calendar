@@ -1935,6 +1935,284 @@ html,
 .day + .currentDay {
   background-color: #e8f4fa;
 }
+
+
+
+/* Extra small devices (phones) */
+@media only screen and (max-width: 575px) {
+  
+  .day {
+
+
+  }
+  
+}
+
+/* Small devices (tablets) */
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  #calendar-body {
+    display: flex;
+    margin-top: 70px; /* 50 */
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #nextButton {
+    margin-left: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #backButton {
+    margin-right: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #calendar-header {
+    padding: 10px;
+    font-size: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #calendar-container {
+    width: 770px; /* 770 */
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+  }
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+  }
+}
+
+/* Medium devices (desktops) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #calendar-body {
+    display: flex;
+    margin-top: 70px; /* 50 */
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #nextButton {
+    margin-left: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #backButton {
+    margin-right: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #calendar-header {
+    padding: 10px;
+    font-size: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #calendar-container {
+    width: 770px; /* 770 */
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+  }
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+
+  }
+}
+
+/* Large devices (desktops) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+   
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+  }
+}
+
+/* Medium devices (desktops) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #calendar-body {
+    display: flex;
+    margin-top: 70px; /* 50 */
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #nextButton {
+    margin-left: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #backButton {
+    margin-right: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #calendar-header {
+    padding: 10px;
+    font-size: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #calendar-container {
+    width: 770px; /* 770 */
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+  }
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+
+  }
+}
+
+/* Extra large devices (large desktops) */
+@media only screen and (min-width: 1200px) {
+  
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+  }
+}
+
+/* Medium devices (desktops) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #calendar-body {
+    display: flex;
+    margin-top: 70px; /* 50 */
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #nextButton {
+    margin-left: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #backButton {
+    margin-right: 2.5px;
+    width: 75px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  #calendar-header {
+    padding: 10px;
+    font-size: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #calendar-container {
+    width: 770px; /* 770 */
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+  }
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .day {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    margin: 2px;
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .event {
   font-size: 10px;
   font-family: "Assistant";

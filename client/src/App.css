@@ -50,8 +50,6 @@ body {
   object-fit: cover;
 }
 
-
-
 .auth__form-container_fields-content {
   display: flex;
   flex-direction: column;
@@ -473,7 +471,9 @@ body {
   border-radius: 8px;
   margin-bottom: 8px;
   border: 1px solid transparent;
-  width: 95%;
+  flex: 1;
+  padding-left: 15px;
+  padding-right: 5px;
 }
 
 .channel-search__input__wrapper:focus-within {
@@ -484,8 +484,7 @@ body {
   width: 32px;
   display: flex;
   justify-content: center;
-  margin-left: 15px;
-  margin-right: 5px;
+  z-index: 1;
 }
 
 .channel-search__input__text {
@@ -495,6 +494,8 @@ body {
   font-family: "Poppins";
   font-size: 16px;
   outline: none;
+  width: 100%;
+  height: 100%;
 }
 
 ::placeholder {
@@ -1912,16 +1913,10 @@ html,
   background-color: #e8f4fa;
 }
 
-
-
 /* Extra small devices (phones) */
 @media only screen and (max-width: 575px) {
-  
   .day {
-
-
   }
-  
 }
 
 /* Small devices (tablets) */
@@ -1970,7 +1965,7 @@ html,
     display: flex;
     flex-wrap: wrap;
   }
-  
+
   .day {
     width: 80px;
     height: 80px;
@@ -2030,7 +2025,6 @@ html,
     height: 80px;
     padding: 5px;
     margin: 2px;
-
   }
 }
 
@@ -2038,7 +2032,7 @@ html,
 @media only screen and (min-width: 1400px) and (max-width: 1599px) {
   #calendar-body {
     display: flex;
-    margin-top: 70px; 
+    margin-top: 70px;
     justify-content: center;
     margin-left: 20px;
     margin-right: 20px;
@@ -2092,7 +2086,6 @@ html,
     position: absolute;
     right: 0;
   }
-
 }
 
 /* Extra large devices (large desktops) */
@@ -2105,7 +2098,7 @@ html,
   }
 
   #calendar-container {
-    width: 1000px; 
+    width: 1000px;
   }
   #weekdays {
     width: 105%;
@@ -2124,7 +2117,6 @@ html,
     height: 145px;
     padding: 5px;
     margin: 2px;
-
   }
 
   .channel__container {
@@ -2134,28 +2126,6 @@ html,
     right: 0;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .event {
   font-size: 10px;
@@ -2423,7 +2393,8 @@ html,
   box-shadow: 0px 0px 2px gray;
 }
 
-.profile_phone-number::placeholder, .profile_avatar-url::placeholder {
+.profile_phone-number::placeholder,
+.profile_avatar-url::placeholder {
   color: #8e8e8e;
 }
 
@@ -2437,10 +2408,18 @@ html,
   font-size: 15px;
   animation: fadeinout 3s ease-in-out forwards;
 }
-  
+
 @keyframes fadeinout {
-  0% {opacity: 0;}
-  10% {opacity: 1;}
-  90% {opacity: 1;}
-  100% {opacity: 0;}
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

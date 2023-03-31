@@ -14,6 +14,9 @@ export const useDate = (events, nav) => {
         if (nav !== 0) {
             dt.setMonth(new Date().getMonth() + nav)
         }
+        if (dt.getMonth() !== new Date().getMonth() + nav) {
+            dt.setDate(0) // set to last day of previous month
+        }
 
         const day = dt.getDate()
         const month = dt.getMonth()

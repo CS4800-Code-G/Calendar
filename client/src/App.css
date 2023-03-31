@@ -473,9 +473,9 @@ body {
   border-radius: 8px;
   margin-bottom: 8px;
   border: 1px solid transparent;
-  flex: 1;
   padding-left: 15px;
   padding-right: 5px;
+  width: 85%;
 }
 
 .channel-search__input__wrapper:focus-within {

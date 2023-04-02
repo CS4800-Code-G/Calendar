@@ -9,18 +9,18 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 require('dotenv').config()
-app.use(cors({
-  origin: 'http://18.183.252.141:3000/' 
-}));
+
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID
 const twilioClient = require('twilio')(accountSid, authToken)
 
 
+const allowedOrigins = ['http://18.183.252.141:3000', 'http://localhost:3000'];
+
 app.use(cors({
-    origin: 'http://18.183.252.141:3000/' 
-  }));
+  origin: allowedOrigins
+}));
 
 app.use(express.json())
 app.use(express.urlencoded())

@@ -17,7 +17,6 @@ const authToken = process.env.TWILIO_AUTH_TOKEN
 const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID
 const twilioClient = require('twilio')(accountSid, authToken)
 
-app.use(cors())
 
 app.use(cors({
     origin: 'http://18.183.252.141:3000/' 

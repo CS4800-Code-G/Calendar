@@ -89,7 +89,16 @@ const App = () => {
           setPcid={setPcid}
         />
         <Calendar data={data} />
-        <RightSideBarContainer tabs={tabs} />
+        <ChannelContainer
+          isCreating={isCreating}
+          setIsCreating={setIsCreating}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          createType={createType}
+          teamChannelHashTable={teamChannelHashTable}
+          setQuery={setQuery}
+          pcid={pcid}
+        />
       </Chat>
     </div>
   );

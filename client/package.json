@@ -13,6 +13,7 @@
     "stream-chat": "^4.4.3",
     "stream-chat-react": "^6.13.0",
     "universal-cookie": "^4.0.4",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

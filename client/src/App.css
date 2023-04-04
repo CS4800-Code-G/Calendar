@@ -303,7 +303,6 @@ body {
 }
 
 .channel__container {
-  margin-left: (72px + 240px + 770px + 36px);
   width: 27.2%;
   right: 0;
   height: 100%;

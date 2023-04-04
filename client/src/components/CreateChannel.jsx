@@ -3,6 +3,7 @@ import { useChatContext } from 'stream-chat-react'
 
 import { UserList } from './'
 import { CloseCreateChannel } from '../assets'
+import { v4 as uuidv4 } from 'uuid';
 
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
     const handleChange = (event) => {
@@ -30,7 +31,7 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
 
         try {
 
-            const uuid = crypto.randomUUID();
+            const uuid = Math.random().toString(36).substring(7);
 
             const newChannel = await client.channel(createType, uuid, {
                 name: uuid, members: selectedUsers

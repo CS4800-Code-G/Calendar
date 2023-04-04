@@ -5,6 +5,7 @@ import { UserList } from './'
 import { CloseCreateChannel } from '../assets'
 import { v4 as uuidv4 } from 'uuid';
 
+
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
     const handleChange = (event) => {
         event.preventDefault()
@@ -31,7 +32,8 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
 
         try {
 
-            const uuid = Math.random().toString(36).substring(7);
+            const uuid = uuidv4();
+
 
             const newChannel = await client.channel(createType, uuid, {
                 name: uuid, members: selectedUsers

@@ -3,7 +3,7 @@ Do 'cd client' in one terminal and 'cd server' in the other
 
 In client directory:
 npm install react@17.0.2 react-dom@17.0.2 --force
-npm install stream-chat stream-chat-react universal-cookie
+npm install stream-chat stream-chat-react universal-cookie --force
 npm install axios --force
 
 old version: stream-chat@4.1.0 stream-chat-react@6.5.1

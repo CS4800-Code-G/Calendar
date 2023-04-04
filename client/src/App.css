@@ -303,9 +303,12 @@ body {
 }
 
 .channel__container {
-  width: 100%;
+  margin-left: (72px + 240px + 770px + 36px);
+  width: 27.2%;
+  right: 0;
   height: 100%;
   background-color: #ffffff;
+  position: fixed;
 }
 
 .str-chat__thread {
@@ -379,6 +382,7 @@ body {
   /* height: 800px; */
   height: 100%;
   box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1);
+  position: fixed;
 }
 
 .channel-list__sidebar {
@@ -1899,6 +1903,7 @@ html,
 }
 #calendar-container {
   width: 770px; /* 770 */
+  margin-left: 312px;
 }
 #weekdays {
   width: 100%;

@@ -303,7 +303,7 @@ body {
 }
 
 .channel__container {
-  width: 27.2%;
+  width: calc(100% - 72px - 240px - 770px - 36px);
   right: 0;
   height: 100%;
   background-color: #ffffff;

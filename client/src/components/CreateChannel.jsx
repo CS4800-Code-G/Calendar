@@ -34,7 +34,6 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
 
             const uuid = uuidv4();
 
-
             const newChannel = await client.channel(createType, uuid, {
                 name: uuid, members: selectedUsers
             })

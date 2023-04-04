@@ -18,7 +18,7 @@ const twilioClient = require('twilio')(accountSid, authToken)
 app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://18.183.252.141:3000');
-    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
@@ -64,10 +64,10 @@ app.post('/', (req, res) => {
             .filter((member) => member.user_id !== sender.id)
             .forEach(({ user }) => {
                 if (!user.online) {
-                    twilioClient.message.create({
+                    twilioClient.messages.create({
                         body: `You have a new message from ${message.user.fullName} - ${message.text}`,
                         messagingServiceSid: messagingServiceSid,
-                        to: user.phoneNumber
+                        to: `+1${user.phoneNumber}`
                     })
                         .then(() => console.log('Message sent!'))
                         .catch(err => console.log(err))

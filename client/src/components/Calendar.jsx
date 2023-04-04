@@ -27,7 +27,7 @@ const Calendar = (user) => {
   }, [channel]);
 
   async function getEvents() {
-    fetch("http://localhost:5000/events")
+    fetch("http://18.183.252.141:5000/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(
@@ -53,7 +53,7 @@ const Calendar = (user) => {
   }
 
   async function createEvent(event) {
-    fetch("http://localhost:5000/events", {
+    fetch("http://18.183.252.141:5000/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

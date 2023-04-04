@@ -90,7 +90,7 @@ const ChannelListContent = ({
   useEffect(() => {
     const getChannels = async () => {
       try {
-        const response = await fetch("http://localhost:5000/channels")
+        const response = await fetch("http://18.183.252.141:5000/channels")
         const data = await response.json()
 
         const teamChannelHashTable = {}

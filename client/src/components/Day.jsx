@@ -10,7 +10,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
     }
 
     async function updateEvent(id, updatedEvent) {
-        fetch(`http://localhost:5000/events/${id}`, {
+        fetch(`http://18.183.252.141:5000/events/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
     }
 
     async function deleteEventById(id) {
-        fetch('http://localhost:5000/events/' + id, {
+        fetch('http://18.183.252.141:5000/events/' + id, {
           method: 'DELETE',
         })
           .then(response => response.json())

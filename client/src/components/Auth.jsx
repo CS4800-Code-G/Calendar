@@ -60,7 +60,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
     const { username, password, phoneNumber, avatarURL } = form;
 
-    const URL = "http://localhost:5000/auth";
+    const URL = "http://18.183.252.141:5000/auth";
 
     try {
       const {
@@ -124,7 +124,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
   };
 
   async function getUsers() {
-    fetch("http://localhost:5000/users")
+    fetch("http://18.183.252.141:5000/users")
       .then((response) => response.json())
       .then((data) => {
         setUsernames(() => data.map((user) => user.username));
@@ -134,7 +134,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
   // Call this function to send POST request to database
   async function createUser(user) {
-    fetch("http://localhost:5000/users", {
+    fetch("http://18.183.252.141:5000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

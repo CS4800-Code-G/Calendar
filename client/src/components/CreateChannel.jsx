@@ -58,7 +58,7 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
     }
 
     async function sendChannel(channel) {
-        fetch('http://18.183.252.141:5000/channels', {
+        fetch('http://54.238.166.164:5000/channels', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

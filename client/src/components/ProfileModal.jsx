@@ -25,17 +25,34 @@ export const ProfileModal = ({ onSave, onClose, fullName, username, phoneNumber,
     }
   }, [showMessage]);
 
+  const isImageValid = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   return (
     <>
       <div id='profileModal'>
         <h2 className='profile_header'>Profile</h2>
         <div className='profile_avatar' style={{ margin: '0 auto' }}>
-          <Avatar
-            image={updatedImage}
-            name={fullName}
-            size={75} 
-            onMouseOver={(e) => e.currentTarget.removeAttribute("title")}
-          />
+          {isImageValid(updatedImage) ? (
+            <Avatar 
+              image={updatedImage} 
+              name={fullName} 
+              size={75} 
+              onMouseOver={(e) => e.currentTarget.removeAttribute("title")} 
+            />
+          ) : (
+            <Avatar 
+              name={fullName} 
+              size={75} 
+              onMouseOver={(e) => e.currentTarget.removeAttribute("title")} 
+            />
+          )}
         </div>
         <p className='profile_full-name'>{fullName}</p>
         <p className='profile_username'>@{username}</p>

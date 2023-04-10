@@ -43,10 +43,9 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
                 channelName: channelName
             }
 
+            await newChannel.watch()
             teamChannelHashTable[uuid] = channelName
             sendChannel(channel)
-
-            await newChannel.watch()
 
             setChannelName('')
             setIsCreating(false)

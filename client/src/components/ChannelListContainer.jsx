@@ -173,6 +173,7 @@ const ChannelListContent = ({
           query={query}
           setQuery={setQuery}
           />
+        <div className='channel-list__list__wrapper-channels'>
         <ChannelList
           filters={filters}
           channelRenderFilterFn={customPersonalChannelFilter}
@@ -238,6 +239,7 @@ const ChannelListContent = ({
             />
           )}
         />
+        </div>
         {
           settingsClicked === true && (
             <ProfileModal

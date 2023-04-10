@@ -414,6 +414,19 @@ body {
   width: 240px;
 }
 
+.channel-list__list__wrapper-channels {
+  display: flex;
+  flex-direction: column;
+  background: var(--primary-color);
+  width: 240px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.channel-list__list__wrapper-channels::-webkit-scrollbar {
+  display: none;
+}
+
 .icon1__inner {
   font-family: Helvetica Neue, sans-serif;
   height: 100%;

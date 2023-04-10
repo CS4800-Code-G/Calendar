@@ -57,7 +57,7 @@ const UserList = ( { setSelectedUsers }) => {
                 const response = await client.queryUsers(
                     { id: { $nin: [client.userID, '18c0d74c3413610d5f814f9964668116', 'codeg', 'kims', 'jred'] }, },
                     { id: 1 },
-                    { limit: 8 }
+                    { limit: 100 }
                 )
 
                 if (response.users.length) {

@@ -686,6 +686,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
 }
 
 .user-list__header {
@@ -1760,7 +1761,7 @@ div.rta__autocomplete.str-chat__emojisearch {
   width: 100%;
   padding: 10px;
 }
-
+/*
 @media screen and (max-width: 960px) {
   .channel-list__container {
     display: none;
@@ -1849,7 +1850,7 @@ div.rta__autocomplete.str-chat__emojisearch {
     display: none;
   }
 }
-
+*/
 #calendar-body {
   display: flex;
   margin-top: 70px; /* 50 */

@@ -66,29 +66,14 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
   const updateChannel = async (event) => {
     event.preventDefault();
   
-    const nameChanged = channelName !== (channel.data.name || channel.data.id);
+    const nameChanged = channelName !== teamChannelHashTable[channel.data.name];
   
     if (nameChanged) {
-      const existingChannels = await client.queryChannels({
-        type: channel.type,
-        name: channel.id,
-      });
-  
-      if (existingChannels.length) {
-        // If a channel with the same name already exists, remove the current channel name from the list of channels
-        const filteredChannels = existingChannels.filter(c => c.id !== channel.id);
-  
-        // If there are still channels with the same name, throw an error
-        if (filteredChannels.length) {
-          throw new Error(`A channel with the name ${channelName} already exists.`);
-        }
-      }
-  
+      await channel.update({ name: channel.id }, { text: `Channel name changed to ${channelName}` });
       updateChannelByID(channel.id, {
         channelName: channelName
       })
       teamChannelHashTable[channel.id] = channelName
-      await channel.update({ name: channel.id }, { text: `Channel name changed to ${channelName}` });
     }
   
     if (selectedUsers.length) {
@@ -125,14 +110,14 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
   };
 
   return (
-    <div className='edit-channel_container'>
+    <div className='edit-channel__container'>
       <div className='edit-channel__header'>
         <p>Edit Channel</p>
         <CloseCreateChannel setIsEditing={setIsEditing} />
       </div>
       <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />
       <UserList setSelectedUsers={setSelectedUsers} />
-      {isOwner ? (
+      { isOwner ? (
         <div className='edit-channel__button-wrapper delete-leave' onClick={handleDeleteChannel}>
           <p>Delete Channel</p>
         </div>

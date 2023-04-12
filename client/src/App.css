@@ -425,6 +425,17 @@ body {
 
 .channel-list__list__wrapper-channels::-webkit-scrollbar {
   display: none;
+  width: 7.5px; /* Width of the scrollbar */
+}
+
+.channel-list__list__wrapper-channels::-webkit-scrollbar-thumb {
+  background-color: #608cd4; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Radius of the scrollbar thumb */
+}
+
+.channel-list__list__wrapper-channels::-webkit-scrollbar-thumb:hover,
+.channel-list__list__wrapper-channels:hover::-webkit-scrollbar-thumb {
+  background-color: #84acf1; /* Color of the scrollbar thumb on hover */ /* #506fa6 */
 }
 
 .icon1__inner {
@@ -700,6 +711,21 @@ body {
   flex-direction: column;
   height: 100%;
   overflow: auto;
+}
+
+.user-list__container::-webkit-scrollbar {
+  width: 14px;
+}
+
+.user-list__container::-webkit-scrollbar-thumb {
+  background-color: #dbdbdb; /* Color of the scrollbar thumb */
+  border-radius: 9999px; /* Radius of the scrollbar thumb */
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.user-list__container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.3); /* Color of the scrollbar thumb on hover */ /* #506fa6 */
 }
 
 .user-list__header {

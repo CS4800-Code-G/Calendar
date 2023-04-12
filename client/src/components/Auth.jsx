@@ -164,7 +164,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
           <form onSubmit={handleSubmit}>
             {isSignup && (
               <div className="auth__form-container_fields-content_input">
-                <label htmlFor="fullName">Full Name</label>
+                <label htmlFor="fullName">Full Name*</label>
                 <input
                   name="fullName"
                   type="text"
@@ -175,7 +175,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
               </div>
             )}
             <div className="auth__form-container_fields-content_input">
-              <label htmlFor="username">Username</label>
+              {isSignup ? <label htmlFor="username">Username*</label> : <label htmlFor="username">Username</label> }
               <input
                 name="username"
                 type="text"
@@ -217,7 +217,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
               </div>
             )}
             <div className="auth__form-container_fields-content_input">
-              <label htmlFor="password">Password</label>
+              {isSignup ? <label htmlFor="password">Password*</label> : <label htmlFor="password">Password</label>}
               <input
                 name="password"
                 type="password"
@@ -228,7 +228,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
             </div>
             {isSignup && (
               <div className="auth__form-container_fields-content_input">
-                <label htmlFor="confirmPassword">Confirm Password</label>
+                <label htmlFor="confirmPassword">Confirm Password*</label>
                 <input
                   name="confirmPassword"
                   type="password"

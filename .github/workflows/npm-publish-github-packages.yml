@@ -12,27 +12,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install server dependencies
-        run: npm install mongodb mongoose
-             npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
-             npm install cors
+        run: |
+          npm install mongodb mongoose
+          npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
+          npm install cors
 
       - name: Run Server
         run: npm run start
-
-      - name: Install client dependencies
-        run: npm install react@17.0.2 react-dom@17.0.2 --force
-             npm install stream-chat stream-chat-react universal-cookie --force
-             npm install axios --force
-
-      - name: Build client
-        run: npm start
 
       - name: Copy server files to EC2 instance
         uses: appleboy/scp-action@master
@@ -53,6 +48,16 @@ jobs:
             cd /home/ec2-user/server
             pm2 stop index.js
             pm2 start index.js
+
+      - name: Install client dependencies
+        run: |
+          npm install react@17.0.2 react-dom@17.0.2 --force
+          npm install stream-chat stream-chat-react universal-cookie --force
+          npm install axios --force
+          npm install uuid --force
+
+      - name: Build client
+        run: npm start
 
       - name: Copy client files to EC2 instance
         uses: appleboy/scp-action@master

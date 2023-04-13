@@ -24,7 +24,7 @@ jobs:
           host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
           username: ec2-user
           key: ${{ secrets.KEY }}
-          source: "~/"
+          source: "."
           target: "~/"
           
       - name: Move into server folder

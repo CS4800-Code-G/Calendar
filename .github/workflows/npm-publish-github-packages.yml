@@ -25,6 +25,7 @@ jobs:
         with:
           host: 54.238.166.164
           username: ec2-user
+          port: 22
           key: ${{ secrets.KEY }}
           source: "."
           target: "~/"

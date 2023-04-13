@@ -37,7 +37,7 @@ jobs:
           npm install cors
 
       - name: Run Server
-        run: npm run dev
+        run: npm run start
 
       
 

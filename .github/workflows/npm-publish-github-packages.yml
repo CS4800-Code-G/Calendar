@@ -23,8 +23,7 @@ jobs:
         with:
           host: 54.238.166.164
           username: ec2-user
-          key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQBSKSHxVo2fVCMy37G/hSMrS/VRQot4/eRNjSJyl/gtfbEYZSSoxxuLXwXcwkhLaaTXi5I4m/xtMwkUslK2TpoEEURNimyfYr/kche/WWTRrfVzTKh1uemQFQMRDbKiScENKI9fyCRCvi0hieCTASyyRh1+i06pog2RPRO52BOFXUVoRwJDTyzI3DAnw7WBsPcLZu+4PoU3HG505i1U8fFagSfqeiJxXEYS0neIlTtBU3aLQY65INnyQ3vnxxthwgYsG3Zy332Y5sYd3DYjzAYqX6qd3dhHvZLaRMGy2z5D3AHhSoOmChqtjtuLnpFS7naWSRpx+7wOy5mmDlaz/n CodeGKey
-          source: "."
+          key: ${{ secrets.KEY }}
           target: "~/"
           
       - name: Move into server folder

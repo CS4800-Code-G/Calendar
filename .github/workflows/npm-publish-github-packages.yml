@@ -23,7 +23,7 @@ jobs:
         with:
           host: 54.238.166.164
           username: ec2-user
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.CODEG_KEY }}
           source: "."
           target: "~/"
           

@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 16.x
           
-      - name: Copy server files to EC2 instanc
+      - name: Copy server files to EC2 instance
         uses: appleboy/scp-action@master
         with:
           host: 54.238.166.164

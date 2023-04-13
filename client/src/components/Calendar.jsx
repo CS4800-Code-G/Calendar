@@ -83,7 +83,7 @@ const Calendar = (user) => {
           />
 
           <div id="weekdays">
-            <div>Sunday</div>
+            <div>TESTING</div>
             <div>Monday</div>
             <div>Tuesday</div>
             <div>Wednesday</div>

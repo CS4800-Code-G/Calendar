@@ -46,24 +46,15 @@ jobs:
             pm2 stop index.js
             pm2 start index.js
 
-  build-client:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
 
       - name: Install client dependencies
-        run: npm install --prefix client
+        run: npm install react@17.0.2 react-dom@17.0.2 --force
+npm install stream-chat stream-chat-react universal-cookie --force
+npm install axios --force
+npm install uuid --force
 
       - name: Build client
-        run: npm run build --prefix client
-
+        run: npm start
       - name: Copy client files to EC2 instance
         uses: appleboy/scp-action@master
         with:

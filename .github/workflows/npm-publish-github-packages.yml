@@ -30,9 +30,13 @@ jobs:
           source: "."
           target: "~/"
       
+      - name: cd into project folder and server
+        run: |
+          cd ~
+          cd server
+
 
       - name: Install server dependencies
-        working-directory: ~/server # Change this to your desired working directory
         run: |
           npm install
           npm install mongodb mongoose

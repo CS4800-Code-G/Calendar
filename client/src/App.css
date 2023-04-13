@@ -208,6 +208,21 @@ body {
   overflow: auto;
 }
 
+.app__wrapper::-webkit-scrollbar {
+  width: 14px;
+}
+
+.app__wrapper::-webkit-scrollbar-thumb {
+  background-color: #dadce0; /* Color of the scrollbar thumb */
+  border-radius: 9999px; /* Radius of the scrollbar thumb */
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.app__wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.3); /* Color of the scrollbar thumb on hover */ /* #506fa6 */
+}
+
 .str-chat-channel-list {
   height: fit-content;
   margin-bottom: 8px;
@@ -326,6 +341,21 @@ body {
   padding-top: 0px;
 }
 
+.str-chat__list::-webkit-scrollbar {
+  width: 14px;
+}
+
+.str-chat__list::-webkit-scrollbar-thumb {
+  background-color: #dadce0; /* Color of the scrollbar thumb */
+  border-radius: 9999px; /* Radius of the scrollbar thumb */
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.str-chat__list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.3); /* Color of the scrollbar thumb on hover */ /* #506fa6 */
+}
+
 .str-chat__thread-list .channel-empty__container {
   display: none;
 }
@@ -420,22 +450,24 @@ body {
   background: var(--primary-color);
   width: 240px;
   max-height: 100%;
-  overflow-y: auto;
+  overflow-y: overlay;
 }
 
 .channel-list__list__wrapper-channels::-webkit-scrollbar {
-  display: none;
-  width: 7.5px; /* Width of the scrollbar */
+  /*display: none; */
+  width: 10px; /* Width of the scrollbar */
 }
 
 .channel-list__list__wrapper-channels::-webkit-scrollbar-thumb {
   background-color: #608cd4; /* Color of the scrollbar thumb */
   border-radius: 5px; /* Radius of the scrollbar thumb */
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
 }
 
 .channel-list__list__wrapper-channels::-webkit-scrollbar-thumb:hover,
 .channel-list__list__wrapper-channels:hover::-webkit-scrollbar-thumb {
-  background-color: #84acf1; /* Color of the scrollbar thumb on hover */ /* #506fa6 */
+  background-color: #5b7db8; /* Color of the scrollbar thumb on hover */ /* #5b7db8 #83a2d9 */
 }
 
 .icon1__inner {
@@ -718,7 +750,7 @@ body {
 }
 
 .user-list__container::-webkit-scrollbar-thumb {
-  background-color: #dbdbdb; /* Color of the scrollbar thumb */
+  background-color: #dadce0; /* Color of the scrollbar thumb */
   border-radius: 9999px; /* Radius of the scrollbar thumb */
   background-clip: padding-box;
   border: 3px solid rgba(0, 0, 0, 0);

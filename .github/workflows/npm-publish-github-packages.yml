@@ -31,20 +31,22 @@ jobs:
           target: "~/CalendarApp"
       
 
-      - name: Install server dependencies
-        run: |
-            cd ~/CalendarApp/server
+      - name: Connect to EC2 instance via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/CalendarApp/Server
             npm install
             npm install mongodb mongoose
             npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
             npm install cors
+            npm run start
 
 
-      - name: Run Server
-        run: npm run start
-
-      
-
+    
 #       - name: Connect to EC2 instance via SSH
 #         uses: appleboy/ssh-action@master
 #         with:
@@ -52,7 +54,7 @@ jobs:
 #           username: ec2-user
 #           key: ${{ secrets.KEY }}
 #           script: |
-#             cd /home/ec2-user/server
+#            cd /home/ec2-user/server
 #             pm2 stop index.js
 #             pm2 start index.js
 

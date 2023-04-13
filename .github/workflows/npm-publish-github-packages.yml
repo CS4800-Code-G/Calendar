@@ -1,0 +1,87 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - aws
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install server dependencies
+        run: npm install mongodb mongoose
+            npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
+            npm install cors
+
+      - name: Run Server
+        run: npm run start
+
+    - name: Copy server files to EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          source: "server/**"
+          target: "~/"
+
+      - name: Connect to EC2 instance via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/server
+            pm2 stop index.js
+            pm2 start index.js
+
+  build-client:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install client dependencies
+        run: npm install --prefix client
+
+      - name: Build client
+        run: npm run build --prefix client
+
+      - name: Copy client files to EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          source: "client/build/**"
+          target: "~/"
+
+      - name: Connect to EC2 instance via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/client
+            sudo service nginx stop
+            rm -rf /usr/share/nginx/html/*
+            cp -r build/* /usr/share/nginx/html/
+            sudo service nginx start

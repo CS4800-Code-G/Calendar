@@ -19,9 +19,9 @@ jobs:
           node-version: 16.x
           
       - name: Copy server files to EC2 instance
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@aws
         with:
-          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          host: 54.238.166.164
           username: ec2-user
           key: ${{ secrets.KEY }}
           source: "."

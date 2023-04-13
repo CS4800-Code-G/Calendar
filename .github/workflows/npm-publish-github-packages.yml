@@ -32,12 +32,13 @@ jobs:
       
 
       - name: Install server dependencies
+        working-directory: ~/server # Change this to your desired working directory
         run: |
           npm install
           npm install mongodb mongoose
           npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
           npm install cors
-          working-directory: ~/server # Change this to your desired working directory
+
 
       - name: Run Server
         run: npm run start

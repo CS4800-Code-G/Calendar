@@ -31,7 +31,10 @@ jobs:
           target: "~/CalendarApp"
           
       - name: Move into server folder
-        run: cd server
+        run: |
+            cd CalendarApp
+            cd server
+        
       
       - name: Install server dependencies
         run: |

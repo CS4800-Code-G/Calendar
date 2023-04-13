@@ -28,7 +28,7 @@ jobs:
           port: 22
           key: ${{ secrets.KEY }}
           source: "."
-          target: "~/CalendarApp"
+          target: "~/"
           
       
       - name: Install server dependencies
@@ -37,7 +37,7 @@ jobs:
           npm install mongodb mongoose
           npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
           npm install cors
-        working-directory: ./CalendarApp/server # Change this to your desired working directory
+        working-directory: ./server # Change this to your desired working directory
 
       - name: Run Server
         run: npm run start

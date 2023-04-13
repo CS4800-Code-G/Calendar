@@ -43,13 +43,14 @@ jobs:
             npm install mongodb mongoose
             npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force
             npm install cors
-            npm run start &
+            pm2 start index.js
             cd /home/ec2-user/CalendarApp/client
+            npm install
             npm install react@17.0.2 react-dom@17.0.2 --force
             npm install stream-chat stream-chat-react universal-cookie --force
             npm install axios --force
             npm install uuid --force
-            npm start &
+            pm2 start npm --name "my-app" -- start
 
 
     

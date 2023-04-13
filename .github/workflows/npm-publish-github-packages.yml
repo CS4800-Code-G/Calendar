@@ -32,7 +32,6 @@ jobs:
           
       - name: Move into server folder
         run: |
-            cd ~/CalendarApp
             cd server
         
       

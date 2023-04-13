@@ -30,14 +30,10 @@ jobs:
           source: "."
           target: "~/"
       
-      - name: cd into project folder and server
-        run: |
-          cd ~
-          cd server
-
 
       - name: Install server dependencies
         run: |
+          cd ~/CalendarApp/server
           npm install
           npm install mongodb mongoose
           npm install bcrypt crypto dotenv express getstream stream-chat@4.1.0 nodemon twilio --force

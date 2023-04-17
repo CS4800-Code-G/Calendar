@@ -52,7 +52,7 @@ jobs:
             npm install stream-chat stream-chat-react universal-cookie --force
             npm install axios --force
             npm install uuid --force
-            npm start
+            pm2 start npm --name "my-app" -- start
 
 
     

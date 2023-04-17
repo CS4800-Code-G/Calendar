@@ -23,7 +23,7 @@ jobs:
       - name: Delete old files in target directory
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-54-238-166-164.ap-northeast-1.compute.amazonaws.com
+          host: ec2-18-180-48-223.ap-northeast-1.compute.amazonaws.com
           username: ec2-user
           port: 22
           key: ${{ secrets.KEY }}

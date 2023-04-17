@@ -60,7 +60,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
     const { username, password, phoneNumber, avatarURL } = form;
 
-    const URL = "http://54.238.166.164:5000/auth";
+    const URL = "http://18.180.48.223:5000/auth";
 
     try {
       const {
@@ -124,7 +124,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
   };
 
   async function getUsers() {
-    fetch("http://54.238.166.164:5000/users")
+    fetch("http://18.180.48.223:5000/users")
       .then((response) => response.json())
       .then((data) => {
         setUsernames(() => data.map((user) => user.username));
@@ -134,7 +134,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
   // Call this function to send POST request to database
   async function createUser(user) {
-    fetch("http://54.238.166.164:5000/users", {
+    fetch("http://18.180.48.223:5000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +175,11 @@ const Auth = ({ isSignup, setIsSignup }) => {
               </div>
             )}
             <div className="auth__form-container_fields-content_input">
-              {isSignup ? <label htmlFor="username">Username*</label> : <label htmlFor="username">Username</label> }
+              {isSignup ? (
+                <label htmlFor="username">Username*</label>
+              ) : (
+                <label htmlFor="username">Username</label>
+              )}
               <input
                 name="username"
                 type="text"
@@ -217,7 +221,11 @@ const Auth = ({ isSignup, setIsSignup }) => {
               </div>
             )}
             <div className="auth__form-container_fields-content_input">
-              {isSignup ? <label htmlFor="password">Password*</label> : <label htmlFor="password">Password</label>}
+              {isSignup ? (
+                <label htmlFor="password">Password*</label>
+              ) : (
+                <label htmlFor="password">Password</label>
+              )}
               <input
                 name="password"
                 type="password"

@@ -11,7 +11,7 @@ import {
 } from "./";
 import CalendarIcon from "../assets/calendar.png";
 import LogoutIcon from "../assets/logout.png";
-import SettingIcon from "../assets/setting.png"
+import SettingIcon from "../assets/setting.png";
 
 const cookies = new Cookies();
 
@@ -82,23 +82,22 @@ const ChannelListContent = ({
   query,
   setQuery,
   pcid,
-  setPcid
+  setPcid,
 }) => {
   const { client, setActiveChannel } = useChatContext();
-  const [settingsClicked, setSettingsClicked] = useState(false)
+  const [settingsClicked, setSettingsClicked] = useState(false);
 
   useEffect(() => {
     const getChannels = async () => {
       try {
-        const response = await fetch("http://54.238.166.164:5000/channels")
-        const data = await response.json()
+        const response = await fetch("http://18.180.48.223:5000/channels");
+        const data = await response.json();
 
-        const teamChannelHashTable = {}
+        const teamChannelHashTable = {};
         data.forEach((channel) => {
           teamChannelHashTable[channel._id] = channel.channelName;
-        })
-        setTeamChannelHashTable(teamChannelHashTable)
-
+        });
+        setTeamChannelHashTable(teamChannelHashTable);
       } catch (error) {
         console.error(error);
       }
@@ -122,17 +121,17 @@ const ChannelListContent = ({
   };
 
   const settings = () => {
-    setSettingsClicked(true)
-    setQuery('')
-  }
+    setSettingsClicked(true);
+    setQuery("");
+  };
 
   const createPersonalChannel = async () => {
     try {
       const channel = client.channel("messaging", {
         members: [client.userID, "18c0d74c3413610d5f814f9964668116"],
       });
-      await channel.create()
-      setPcid(channel.id)
+      await channel.create();
+      setPcid(channel.id);
     } catch (error) {
       console.error("Error creating personal channel:", error);
     }
@@ -140,129 +139,128 @@ const ChannelListContent = ({
 
   useEffect(() => {
     if (isSignup && data.username !== "Personal") {
-      client.queryChannels({
-        type: "messaging",
-        members: { $eq: [client.userID, "18c0d74c3413610d5f814f9964668116"] },
-      })
-      .then((channels) => {
-        if (channels.length > 0) {
-          const channel = channels[0]
-          setPcid(channel.id)
-        } else {
-          createPersonalChannel()
-          const pc = client.channel('messaging', pcid)
-          setActiveChannel(pc)
-        }
-      })
-      .catch((error) => {
-        console.error("Error querying channels:", error);
-      })
+      client
+        .queryChannels({
+          type: "messaging",
+          members: { $eq: [client.userID, "18c0d74c3413610d5f814f9964668116"] },
+        })
+        .then((channels) => {
+          if (channels.length > 0) {
+            const channel = channels[0];
+            setPcid(channel.id);
+          } else {
+            createPersonalChannel();
+            const pc = client.channel("messaging", pcid);
+            setActiveChannel(pc);
+          }
+        })
+        .catch((error) => {
+          console.error("Error querying channels:", error);
+        });
     }
-  }, [pcid])
+  }, [pcid]);
 
   const filters = { members: { $in: [client.userID] } };
 
   return (
     <>
-      <SideBar logout={logout} settings={settings}/>
+      <SideBar logout={logout} settings={settings} />
       <div className="channel-list__list__wrapper">
         <CompanyHeader />
-        <ChannelSearch 
+        <ChannelSearch
           setToggleContainer={setToggleContainer}
-          teamChannelHashTable={teamChannelHashTable} 
+          teamChannelHashTable={teamChannelHashTable}
           query={query}
           setQuery={setQuery}
+        />
+        <div className="channel-list__list__wrapper-channels">
+          <ChannelList
+            filters={filters}
+            channelRenderFilterFn={customPersonalChannelFilter}
+            List={(listProps) => (
+              <PersonalChannel {...listProps} type="messaging" />
+            )}
+            Preview={(previewProps) => (
+              <TeamChannelPreview
+                {...previewProps}
+                setIsCreating={setIsCreating}
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+                type="messaging"
+              />
+            )}
           />
-        <div className='channel-list__list__wrapper-channels'>
-        <ChannelList
-          filters={filters}
-          channelRenderFilterFn={customPersonalChannelFilter}
-          List={(listProps) => (
-            <PersonalChannel {...listProps} type="messaging" />
-          )}
-          Preview={(previewProps) => (
-            <TeamChannelPreview
-              {...previewProps}
-              setIsCreating={setIsCreating}
-              setIsEditing={setIsEditing}
-              setToggleContainer={setToggleContainer}
-              type="messaging"
-            />
-          )}
-        />
-        <ChannelList
-          filters={filters}
-          channelRenderFilterFn={customChannelTeamFilter}
-          List={(listProps) => (
-            <TeamChannelList
-              {...listProps}
-              type="team"
-              isCreating={isCreating}
-              setIsCreating={setIsCreating}
-              setCreateType={setCreateType}
-              setIsEditing={setIsEditing}
-              setToggleContainer={setToggleContainer}
-            />
-          )}
-          Preview={(previewProps) => (
-            <TeamChannelPreview
-              {...previewProps}
-              setIsCreating={setIsCreating}
-              setIsEditing={setIsEditing}
-              setToggleContainer={setToggleContainer}
-              teamChannelHashTable={teamChannelHashTable}
-              type="team"
-            />
-          )}
-        />
-        <ChannelList
-          filters={filters}
-          channelRenderFilterFn={customChannelMessagingFilter}
-          List={(listProps) => (
-            <TeamChannelList
-              {...listProps}
-              type="messaging"
-              isCreating={isCreating}
-              setIsCreating={setIsCreating}
-              setCreateType={setCreateType}
-              setIsEditing={setIsEditing}
-              setToggleContainer={setToggleContainer}
-            />
-          )}
-          Preview={(previewProps) => (
-            <TeamChannelPreview
-              {...previewProps}
-              setIsCreating={setIsCreating}
-              setIsEditing={setIsEditing}
-              setToggleContainer={setToggleContainer}
-              type="messaging"
-            />
-          )}
-        />
+          <ChannelList
+            filters={filters}
+            channelRenderFilterFn={customChannelTeamFilter}
+            List={(listProps) => (
+              <TeamChannelList
+                {...listProps}
+                type="team"
+                isCreating={isCreating}
+                setIsCreating={setIsCreating}
+                setCreateType={setCreateType}
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+              />
+            )}
+            Preview={(previewProps) => (
+              <TeamChannelPreview
+                {...previewProps}
+                setIsCreating={setIsCreating}
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+                teamChannelHashTable={teamChannelHashTable}
+                type="team"
+              />
+            )}
+          />
+          <ChannelList
+            filters={filters}
+            channelRenderFilterFn={customChannelMessagingFilter}
+            List={(listProps) => (
+              <TeamChannelList
+                {...listProps}
+                type="messaging"
+                isCreating={isCreating}
+                setIsCreating={setIsCreating}
+                setCreateType={setCreateType}
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+              />
+            )}
+            Preview={(previewProps) => (
+              <TeamChannelPreview
+                {...previewProps}
+                setIsCreating={setIsCreating}
+                setIsEditing={setIsEditing}
+                setToggleContainer={setToggleContainer}
+                type="messaging"
+              />
+            )}
+          />
         </div>
-        {
-          settingsClicked === true && (
-            <ProfileModal
-              fullName={client?.user?.fullName}
-              username={client?.user?.name}
-              phoneNumber={client?.user?.phoneNumber}
-              image={client?.user?.image}
-              onSave={(phoneNumber, image) => {
-                const update = {
-                  id: client.userID,
-                  set: {
-                      phoneNumber: phoneNumber,
-                      image: image
-                  }
-                }
-                client.partialUpdateUser(update)
-              }}
-              onClose={() => {
-                setSettingsClicked(false)
-              }}
-            />
-          )
-        }
+        {settingsClicked === true && (
+          <ProfileModal
+            fullName={client?.user?.fullName}
+            username={client?.user?.name}
+            phoneNumber={client?.user?.phoneNumber}
+            image={client?.user?.image}
+            onSave={(phoneNumber, image) => {
+              const update = {
+                id: client.userID,
+                set: {
+                  phoneNumber: phoneNumber,
+                  image: image,
+                },
+              };
+              client.partialUpdateUser(update);
+            }}
+            onClose={() => {
+              setSettingsClicked(false);
+            }}
+          />
+        )}
       </div>
     </>
   );
@@ -279,10 +277,9 @@ const ChannelListContainer = ({
   query,
   setQuery,
   pcid,
-  setPcid
+  setPcid,
 }) => {
   const [toggleContainer, setToggleContainer] = useState(false);
-
 
   return (
     <>

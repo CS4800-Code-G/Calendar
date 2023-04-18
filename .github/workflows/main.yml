@@ -1,0 +1,46 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - aws
+      
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+            
+      - name: Copy server files to EC2 instances
+        uses: appleboy/scp-action@master
+        with:
+          host: 18.180.48.223 
+          username: ec2-user
+          port: 22
+          key: ${{ secrets.KEY }}
+          source: "."
+          target: "~/CalendarApp"
+      
+
+      - name: Connect to EC2 instance via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.180.48.223 
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          script: |
+            cd /home/ec2-user/CalendarApp/server
+            pm2 stop all
+            pm2 delete all
+            pm2 start index.js
+            cd /home/ec2-user/CalendarApp/client
+            pm2 start npm --name "my-app" -- start

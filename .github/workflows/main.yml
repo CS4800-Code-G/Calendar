@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - aws
+      - main
       
   workflow_dispatch:
 
@@ -43,4 +43,6 @@ jobs:
             pm2 delete all
             pm2 start index.js
             cd /home/ec2-user/CalendarApp/client
-            pm2 start npm --name "my-app" -- start
+            export NODE_ENV=production
+            npm run build
+            sudo systemctl restart nginx

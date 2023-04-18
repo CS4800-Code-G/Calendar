@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import { ProfileModal } from "./ProfileModal";
 import Cookies from "universal-cookie";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 import {
   ChannelSearch,
   PersonalChannel,
@@ -15,6 +12,7 @@ import CalendarIcon from "../assets/calendar.png";
 import LogoutIcon from "../assets/logout.png";
 import SettingIcon from "../assets/setting.png"
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const cookies = new Cookies();
 
 const SideBar = ({ logout, settings }) => (
@@ -92,7 +90,7 @@ const ChannelListContent = ({
   useEffect(() => {
     const getChannels = async () => {
       try {
-        const response = await fetch("${API_BASE_URL}/channels")
+        const response = await fetch(`${API_BASE_URL}/channels`)
         const data = await response.json()
 
         const teamChannelHashTable = {}

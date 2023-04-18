@@ -45,7 +45,7 @@ async function updateChannelByID(id, updatedChannel) {
 }
 
 async function deleteChannelById(id) {
-  fetch('${API_BASE_URL}/channels/' + id, {
+  fetch(`${API_BASE_URL}/channels/` + id, {
     method: 'DELETE',
   })
     .then(response => response.json())

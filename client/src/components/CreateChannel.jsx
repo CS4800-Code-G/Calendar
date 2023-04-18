@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useChatContext } from 'stream-chat-react'
-
 import { UserList } from './'
 import { CloseCreateChannel } from '../assets'
 import { v4 as uuidv4 } from 'uuid';
@@ -58,7 +57,7 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
     }
 
     async function sendChannel(channel) {
-        fetch('${API_BASE_URL}/channels', {
+        fetch(`${API_BASE_URL}/channels`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

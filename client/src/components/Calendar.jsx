@@ -29,7 +29,7 @@ const Calendar = (user) => {
   }, [channel]);
 
   async function getEvents() {
-    fetch("${API_BASE_URL}/events")
+    fetch(`${API_BASE_URL}/events`)
       .then((response) => response.json())
       .then((data) => {
         setEvents(
@@ -55,7 +55,7 @@ const Calendar = (user) => {
   }
 
   async function createEvent(event) {
-    fetch("${API_BASE_URL}/events", {
+    fetch(`${API_BASE_URL}/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

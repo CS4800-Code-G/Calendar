@@ -35,7 +35,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
     }
 
     async function deleteEventById(id) {
-        fetch('${API_BASE_URL}/events/' + id, {
+        fetch(`${API_BASE_URL}/events/` + id, {
           method: 'DELETE',
         })
           .then(response => response.json())

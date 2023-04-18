@@ -22,7 +22,7 @@ export const Day = ({
   }
 
   async function updateEvent(id, updatedEvent) {
-    fetch(`http://54.178.36.70:5000/events/${id}`, {
+    fetch(`http:// 18.180.48.223 :5000/events/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const Day = ({
   }
 
   async function deleteEventById(id) {
-    fetch("http://54.178.36.70:5000/events/" + id, {
+    fetch("http:// 18.180.48.223 :5000/events/" + id, {
       method: "DELETE",
     })
       .then((response) => response.json())

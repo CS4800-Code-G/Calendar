@@ -25,7 +25,7 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
 };
 
 async function updateChannelByID(id, updatedChannel) {
-  fetch(`http://54.178.36.70:5000/channels/${id}`, {
+  fetch(`http:// 18.180.48.223 :5000/channels/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +47,7 @@ async function updateChannelByID(id, updatedChannel) {
 }
 
 async function deleteChannelById(id) {
-  fetch("http://54.178.36.70:5000/channels/" + id, {
+  fetch("http:// 18.180.48.223 :5000/channels/" + id, {
     method: "DELETE",
   })
     .then((response) => response.json())

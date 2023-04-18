@@ -23,7 +23,7 @@ jobs:
       - name: Copy server files to EC2 instances
         uses: appleboy/scp-action@master
         with:
-          host: ec2-54-178-36-70.ap-northeast-1.compute.amazonaws.com
+          host: 18.180.48.223 
           username: ec2-user
           port: 22
           key: ${{ secrets.KEY }}
@@ -34,7 +34,7 @@ jobs:
       - name: Connect to EC2 instance via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-54-178-36-70.ap-northeast-1.compute.amazonaws.com
+          host: 18.180.48.223 
           username: ec2-user
           key: ${{ secrets.KEY }}
           script: |

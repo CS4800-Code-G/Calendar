@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { EditEventModal } from './EditEventModal'
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFlag, setEventFlag }) => {
     const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`
     const [eventClicked, setEventClicked] = useState()
@@ -10,7 +12,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
     }
 
     async function updateEvent(id, updatedEvent) {
-        fetch(`http://localhost:5000/events/${id}`, {
+        fetch(`${API_BASE_URL}/events/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +35,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
     }
 
     async function deleteEventById(id) {
-        fetch('http://localhost:5000/events/' + id, {
+        fetch('${API_BASE_URL}/events/' + id, {
           method: 'DELETE',
         })
           .then(response => response.json())

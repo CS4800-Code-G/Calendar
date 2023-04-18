@@ -3,6 +3,8 @@ import { ChannelList, useChatContext } from "stream-chat-react";
 import { ProfileModal } from "./ProfileModal";
 import Cookies from "universal-cookie";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 import {
   ChannelSearch,
   PersonalChannel,
@@ -90,7 +92,7 @@ const ChannelListContent = ({
   useEffect(() => {
     const getChannels = async () => {
       try {
-        const response = await fetch("http://localhost:5000/channels")
+        const response = await fetch("${API_BASE_URL}/channels")
         const data = await response.json()
 
         const teamChannelHashTable = {}

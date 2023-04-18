@@ -4,6 +4,7 @@ import axios from "axios";
 
 import signinImage from "../assets/signup.jpg";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const cookies = new Cookies();
 
 const initialState = {
@@ -60,7 +61,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
     const { username, password, phoneNumber, avatarURL } = form;
 
-    const URL = "http://localhost:5000/auth";
+    const URL = "${API_BASE_URL}/auth";
 
     try {
       const {
@@ -124,7 +125,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
   };
 
   async function getUsers() {
-    fetch("http://localhost:5000/users")
+    fetch("${API_BASE_URL}/users")
       .then((response) => response.json())
       .then((data) => {
         setUsernames(() => data.map((user) => user.username));
@@ -134,7 +135,7 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
   // Call this function to send POST request to database
   async function createUser(user) {
-    fetch("http://localhost:5000/users", {
+    fetch("${API_BASE_URL}/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

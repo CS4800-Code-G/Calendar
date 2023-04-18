@@ -5,6 +5,8 @@ import { Day } from "./Day";
 import { NewEventModal } from "./NewEventModal";
 import { useDate } from "../hooks/useDate";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Calendar = (user) => {
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
@@ -27,7 +29,7 @@ const Calendar = (user) => {
   }, [channel]);
 
   async function getEvents() {
-    fetch("http://localhost:5000/events")
+    fetch("${API_BASE_URL}/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(
@@ -53,7 +55,7 @@ const Calendar = (user) => {
   }
 
   async function createEvent(event) {
-    fetch("http://localhost:5000/events", {
+    fetch("${API_BASE_URL}/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

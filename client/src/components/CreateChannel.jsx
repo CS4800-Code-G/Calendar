@@ -5,6 +5,7 @@ import { UserList } from './'
 import { CloseCreateChannel } from '../assets'
 import { v4 as uuidv4 } from 'uuid';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
     const handleChange = (event) => {
@@ -57,7 +58,7 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
     }
 
     async function sendChannel(channel) {
-        fetch('http://localhost:5000/channels', {
+        fetch('${API_BASE_URL}/channels', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

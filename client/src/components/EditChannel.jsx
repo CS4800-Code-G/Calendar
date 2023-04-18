@@ -4,6 +4,8 @@ import { useChatContext } from 'stream-chat-react';
 import { UserList } from './';
 import { CloseCreateChannel } from '../assets';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
   const handleChange = (event) => {
     event.preventDefault();
@@ -21,7 +23,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
 };
 
 async function updateChannelByID(id, updatedChannel) {
-  fetch(`http://localhost:5000/channels/${id}`, {
+  fetch(`${API_BASE_URL}/channels/${id}`, {
       method: 'PATCH',
       headers: {
           'Content-Type': 'application/json'
@@ -43,7 +45,7 @@ async function updateChannelByID(id, updatedChannel) {
 }
 
 async function deleteChannelById(id) {
-  fetch('http://localhost:5000/channels/' + id, {
+  fetch('${API_BASE_URL}/channels/' + id, {
     method: 'DELETE',
   })
     .then(response => response.json())

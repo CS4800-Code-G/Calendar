@@ -42,7 +42,4 @@ jobs:
             pm2 stop all
             pm2 delete all
             pm2 start index.js
-            cd /home/ec2-user/CalendarApp/client
-            export NODE_ENV=production
-            npm run build
-            sudo systemctl restart nginx
+        

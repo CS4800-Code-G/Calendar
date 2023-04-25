@@ -47,6 +47,9 @@ const ChannelInner = ({ setIsEditing, teamChannelHashTable }) => {
 const TeamChannelHeader = ({ setIsEditing, teamChannelHashTable }) => {
     const { channel, watcher_count } = useChannelStateContext();
     const { client } = useChatContext();
+    const currentUser = client.userID;
+
+    const isOwner = channel?.data?.created_by?.id === currentUser;
   
     const MessagingHeader = () => {
         const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID);
@@ -83,9 +86,11 @@ const TeamChannelHeader = ({ setIsEditing, teamChannelHashTable }) => {
         return (
             <div className='team-channel-header__channel-wrapper'>
             <p className='team-channel-header__name'># {teamChannelHashTable[channel?.data?.name]}</p>
-            <span style={{ display: 'flex' }} onClick={() => setIsEditing(true)}>
-                <ChannelInfo />
-            </span>
+            {isOwner && (
+                <span style={{ display: 'flex' }} onClick={() => setIsEditing(true)}>
+                    <ChannelInfo />
+                </span>
+            )}
             </div>
         );
     };

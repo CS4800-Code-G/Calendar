@@ -128,9 +128,11 @@ const EditChannel = ({ setIsEditing, teamChannelHashTable, setQuery, pcid }) => 
           <p>Leave Channel</p>
         </div>
       )}
+      { isOwner && (
       <div className='edit-channel__button-wrapper' onClick={updateChannel}>
         <p>Save Changes</p>
       </div>
+      )}
     </div>
   );
 };

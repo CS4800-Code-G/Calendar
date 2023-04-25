@@ -20,6 +20,25 @@ body {
   height: 100%;
 }
 
+html::-webkit-scrollbar {
+  width: 14px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #dadce0; /* Color of the scrollbar thumb */
+  border-radius: 9999px; /* Radius of the scrollbar thumb */
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.3); /* Color of the scrollbar thumb on hover */ /* #506fa6 */
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #ffffff; /* Color of the scrollbar track */
+}
+
 .auth__form-container {
   min-height: 100vh;
   display: flex;

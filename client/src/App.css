@@ -2368,6 +2368,7 @@ html,
 .viewEventColor {
   width: 90%;
   height: 25px;
+  border-radius: 5px;
 }
 .viewLocation {
   overflow: auto

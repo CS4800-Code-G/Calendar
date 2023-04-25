@@ -2032,7 +2032,7 @@ html,
 #eventModal {
   z-index: 20;
   padding: 25px;
-  background-color: #e8f4fa;
+  background-color: #edf2f7; /* #e8f4fa */
   box-shadow: 0px 0px 3px black;
   border-radius: 5px;
   width: 350px;
@@ -2346,6 +2346,34 @@ html,
 .tab__button.active {
   color: white;
   background-color: #7ea0d6;
+}
+#viewEventModal {
+  z-index: 20;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3px black;
+  border-radius: 5px;
+  width: 350px;
+  top: 100px;
+  left: calc(50% - 175px);
+  position: absolute;
+  font-family: "Montserrat";
+}
+#viewEventModal h2::-webkit-scrollbar {
+  display: none;
+}
+#viewEventModal h2 {
+  overflow: auto;
+}
+.viewEventColor {
+  width: 90%;
+  height: 25px;
+}
+.viewLocation {
+  overflow: auto
+}
+.viewLocation::-webkit-scrollbar {
+  display: none;
 }
 /*
 checkmark1 Extra small devices (phones)

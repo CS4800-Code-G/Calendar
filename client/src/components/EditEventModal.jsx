@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-export const EditEventModal = ({ onSave, onDelete, onClose, eventText, eventStartTime, eventEndTime, eventLocation, eventPrivate, eventColor, setCurrentColor }) => {
-    const [eventTitleInput, setEventTitleInput] = useState(eventText);
+export const EditEventModal = ({ onSave, onDelete, onClose, eventTitle, eventStartTime, eventEndTime, eventLocation, eventPrivate, eventColor, setCurrentColor }) => {
+    const [eventTitleInput, setEventTitleInput] = useState(eventTitle);
     const [startTimeInput, setStartTimeInput] = useState(eventStartTime);
     const [endTimeInput, setEndTimeInput] = useState(eventEndTime);
     const [locationInput, setLocationInput] = useState(eventLocation);

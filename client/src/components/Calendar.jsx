@@ -115,6 +115,7 @@ const Calendar = (user) => {
                 eventFlag={eventFlag}
                 setEventFlag={setEventFlag}
                 getEvents={getEvents}
+                username={user.data.username}
               />
             ))}
           </div>

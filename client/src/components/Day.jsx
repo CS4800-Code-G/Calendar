@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { EditEventModal } from './EditEventModal'
+import { ViewEventModal } from './ViewEventModal';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFlag, setEventFlag }) => {
+export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFlag, setEventFlag, username }) => {
     const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`
     const [eventClicked, setEventClicked] = useState()
     let eventsForDay = []
@@ -64,37 +65,50 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
 
             {
                 eventClicked && eventFlag === true && (
-                <EditEventModal 
-                    eventText={eventClicked.title}
-                    eventStartTime={eventClicked.startTime}
-                    eventEndTime={eventClicked.endTime}
-                    eventLocation={eventClicked.location}
-                    eventPrivate={eventClicked._private}
-                    eventColor={eventClicked.color}
-                    setCurrentColor={setCurrentColor}
-                    onSave={(eventTitleInput, startTimeInput, endTimeInput, locationInput, privateInput, colorInput) => {
-                        const event = {
-                            date: eventClicked.date,
-                            title: eventTitleInput,
-                            startTime: startTimeInput,
-                            endTime: endTimeInput,
-                            location: locationInput,
-                            _private: privateInput,
-                            color: colorInput
-                        };
-                        updateEvent(eventClicked._id, event)
-                        setEventClicked(null)
-                        setEventFlag(false)
-                    }}
-                    onClose={() => {
-                        setEventClicked(null)
-                        setEventFlag(false)
-                    }}
-                    onDelete={() => {
-                        deleteEventById(eventClicked._id)
-                        setEventFlag(false)
-                    }}
-                />
+                    eventClicked.attendees.includes(username) ?
+                        <EditEventModal 
+                            eventTitle={eventClicked.title}
+                            eventStartTime={eventClicked.startTime}
+                            eventEndTime={eventClicked.endTime}
+                            eventLocation={eventClicked.location}
+                            eventPrivate={eventClicked._private}
+                            eventColor={eventClicked.color}
+                            setCurrentColor={setCurrentColor}
+                            onSave={(eventTitleInput, startTimeInput, endTimeInput, locationInput, privateInput, colorInput) => {
+                                const event = {
+                                    date: eventClicked.date,
+                                    title: eventTitleInput,
+                                    startTime: startTimeInput,
+                                    endTime: endTimeInput,
+                                    location: locationInput,
+                                    _private: privateInput,
+                                    color: colorInput
+                                };
+                                updateEvent(eventClicked._id, event)
+                                setEventClicked(null)
+                                setEventFlag(false)
+                            }}
+                            onClose={() => {
+                                setEventClicked(null)
+                                setEventFlag(false)
+                            }}
+                            onDelete={() => {
+                                deleteEventById(eventClicked._id)
+                                setEventFlag(false)
+                            }}
+                        /> :
+                        <ViewEventModal
+                            eventDate={eventClicked.date}
+                            eventTitle={eventClicked.title}
+                            eventStartTime={eventClicked.startTime}
+                            eventEndTime={eventClicked.endTime}
+                            eventLocation={eventClicked.location}
+                            eventColor={eventClicked.color}
+                            onClose={() => {
+                                setEventClicked(null)
+                                setEventFlag(false)
+                            }}
+                        />
                 )
             }
         </div>

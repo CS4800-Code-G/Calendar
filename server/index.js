@@ -5,6 +5,10 @@ const path = require('path')
 
 const authRoutes = require('./routes/auth.js')
 
+const { MongoClient } = require('mongodb');
+
+const mongoClient = new MongoClient(process.env.DATABASE_URL, { useNewUrlParser: true });
+
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -51,6 +55,57 @@ app.get('/', function(req, res) {
             }
         }
     )
+})
+
+app.get('/stream-events', async (req, res) => {
+    const db = await mongoClient.connect()
+    const collection = db.db('Calendar').collection('events')
+  
+    const changeStream = collection.watch()
+    changeStream.on('change', () => {
+      // Send the updated data to the client
+      res.write('event: update\ndata: updated\n\n')
+    })
+  
+    res.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    })
+})
+
+app.get('/stream-users', async (req, res) => {
+    const db = await mongoClient.connect()
+    const collection = db.db('Calendar').collection('users')
+  
+    const changeStream = collection.watch()
+    changeStream.on('change', () => {
+      // Send the updated data to the client
+      res.write('event: update\ndata: updated\n\n')
+    })
+  
+    res.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    })
+})
+
+app.get('/stream-channels', async (req, res) => {
+    const db = await mongoClient.connect()
+    const collection = db.db('Calendar').collection('channels')
+  
+    const changeStream = collection.watch()
+    changeStream.on('change', () => {
+      // Send the updated data to the client
+      res.write('event: update\ndata: updated\n\n')
+    })
+  
+    res.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive'
+    })
 })
 
 app.post('/', (req, res) => {

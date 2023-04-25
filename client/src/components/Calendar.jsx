@@ -26,6 +26,16 @@ const Calendar = (user) => {
     if (channel && user.data.username !== 'Personal') {
       getEvents();
     }
+
+    const eventSource = new EventSource(`${API_BASE_URL}/stream-events`);
+  
+    eventSource.addEventListener('update', () => {
+      getEvents();
+    });
+  
+    return () => {
+      eventSource.close();
+    };
   }, [channel]);
 
   async function getEvents() {

@@ -25,11 +25,21 @@ const Auth = ({ isSignup, setIsSignup }) => {
 
   useEffect(() => {
     getUsers();
+
+    const eventSource = new EventSource(`${API_BASE_URL}/stream-users`);
+  
+    eventSource.addEventListener('update', () => {
+      getUsers();
+    });
+  
+    return () => {
+      eventSource.close();
+    };
   }, []);
 
   useEffect(() => {
     checkUsername(form.username);
-  }, [form]);
+  }, [form, usernames]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

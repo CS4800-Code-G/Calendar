@@ -107,6 +107,16 @@ const ChannelListContent = ({
     if (client) {
       getChannels();
     }
+
+    const eventSource = new EventSource(`${API_BASE_URL}/stream-channels`);
+  
+    eventSource.addEventListener('update', () => {
+      getChannels();
+    });
+  
+    return () => {
+      eventSource.close();
+    };
   }, [client]);
 
   const logout = () => {

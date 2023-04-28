@@ -44,5 +44,6 @@ jobs:
             pm2 start index.js
             cd /home/ec2-user/CalendarApp/client
             npm run build
-            serve -s build
+            pm2 serve build 3000 --name client
+
         

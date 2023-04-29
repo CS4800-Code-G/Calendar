@@ -24,16 +24,16 @@ const Calendar = (user) => {
   }
 
   useEffect(() => {
-    if (channel && user.data.username !== 'Personal') {
+    if (channel && user.data.username !== "Personal") {
       getEvents();
     }
 
     const eventSource = new EventSource(`${API_BASE_URL}/stream-events`);
-  
-    eventSource.addEventListener('update', () => {
+
+    eventSource.addEventListener("update", () => {
       getEvents();
     });
-  
+
     return () => {
       eventSource.close();
     };

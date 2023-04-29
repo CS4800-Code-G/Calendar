@@ -43,6 +43,8 @@ jobs:
             pm2 delete all
             pm2 start index.js
             cd /home/ec2-user/CalendarApp/client
-            pm2 serve build 3000 --name client
+            pm2 serve build 8080 --name client
+            sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+            sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
 
         

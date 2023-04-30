@@ -735,6 +735,19 @@ html::-webkit-scrollbar-track {
   color: rgba(0, 0, 0, 0.5);
 }
 
+.create-channel__container_error-message {
+  color: #eb5454;
+  border: 1px solid #eb5454;
+  font-family: "Assistant";
+  background-color: #f170704d;
+  padding: 8px;
+  border-radius: 5px;
+  position: fixed;
+  width: 10%;
+  bottom: 19px;
+  right: 260px;
+}
+
 .create-channel__button-wrapper {
   height: 82px;
   background: #f7f6f8;
@@ -742,7 +755,6 @@ html::-webkit-scrollbar-track {
   align-items: center;
   justify-content: flex-end;
   border-bottom-right-radius: 16px;
-
   padding: 0px 10px;
 }
 

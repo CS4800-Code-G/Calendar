@@ -26,6 +26,7 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
     const { client, setActiveChannel } = useChatContext()
     const [selectedUsers, setSelectedUsers] = useState([client.userID || ''])
     const [channelName, setChannelName] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const createChannel = async (e) => {
         e.preventDefault()
@@ -42,17 +43,25 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
                 _id: uuid,
                 channelName: channelName
             }
+            if (createType === "messaging" && selectedUsers.length === 1) {
+                throw new Error("Must add at least one user.");
+            } else {
+                await newChannel.watch()
+                teamChannelHashTable[uuid] = channelName
+                sendChannel(channel)
 
-            await newChannel.watch()
-            teamChannelHashTable[uuid] = channelName
-            sendChannel(channel)
-
-            setChannelName('')
-            setIsCreating(false)
-            setSelectedUsers([client.userID])
-            setActiveChannel(newChannel)
+                setErrorMessage(null);
+                setChannelName('')
+                setIsCreating(false)
+                setSelectedUsers([client.userID])
+                setActiveChannel(newChannel)
+            }
         } catch (error) {
-            console.log(error)
+            if (createType === "messaging" && selectedUsers.length === 1) {
+                setErrorMessage(error.message);
+            } else {
+                console.log(error);
+            }
         }
     }
 
@@ -78,6 +87,11 @@ const CreateChannel = ({ createType, setIsCreating, teamChannelHashTable }) => {
             </div>
             {createType === 'team' && <ChannelNameInput channelName={channelName} setChannelName={setChannelName}/>}
             <UserList setSelectedUsers={setSelectedUsers} />
+            {errorMessage && (
+            <div className="create-channel__container_error-message">
+              {errorMessage}
+            </div>
+            )}
             <div className='create-channel__button-wrapper' onClick={createChannel}>
                 <p>{createType === 'team' ? 'Create Channel' : 'Create Message Group'}</p>
             </div>

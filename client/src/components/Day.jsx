@@ -94,6 +94,7 @@ export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFla
                             }}
                             onDelete={() => {
                                 deleteEventById(eventClicked._id)
+                                setEventClicked(null)
                                 setEventFlag(false)
                             }}
                         /> :

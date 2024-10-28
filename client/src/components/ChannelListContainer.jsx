@@ -12,7 +12,7 @@ import CalendarIcon from "../assets/calendar.png";
 import LogoutIcon from "../assets/logout.png";
 import SettingIcon from "../assets/setting.png"
 
-const API_BASE_URL = "http://54.219.90.242:5000";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const cookies = new Cookies();
 
 const SideBar = ({ logout, settings }) => (

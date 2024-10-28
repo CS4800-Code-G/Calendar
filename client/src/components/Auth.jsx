@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import signinImage from "../assets/signup.jpg";
 
-const API_BASE_URL = "http://54.219.90.242:5000";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const cookies = new Cookies();
 
 const initialState = {

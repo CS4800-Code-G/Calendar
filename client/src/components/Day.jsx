@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { EditEventModal } from './EditEventModal'
 import { ViewEventModal } from './ViewEventModal';
 
-//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const API_BASE_URL = "http://54.219.90.242:5000";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+//const API_BASE_URL = "http://54.219.90.242:5000";
 
 export const Day = ({ day, onClick, events, setCurrentColor, getEvents, eventFlag, setEventFlag, username }) => {
     const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`

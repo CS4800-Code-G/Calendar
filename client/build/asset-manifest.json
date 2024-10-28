@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.8b374129.css",
-    "main.js": "/static/js/main.e9279cf2.js",
-    "static/js/913.c580bfcb.chunk.js": "/static/js/913.c580bfcb.chunk.js",
-    "static/js/581.76baeebf.chunk.js": "/static/js/581.76baeebf.chunk.js",
+    "main.js": "/static/js/main.651c442a.js",
+    "static/js/291.26adf023.chunk.js": "/static/js/291.26adf023.chunk.js",
+    "static/js/303.b9c88031.chunk.js": "/static/js/303.b9c88031.chunk.js",
     "static/js/717.b85a645b.chunk.js": "/static/js/717.b85a645b.chunk.js",
-    "static/js/829.4b3f5747.chunk.js": "/static/js/829.4b3f5747.chunk.js",
+    "static/js/972.85ed6f60.chunk.js": "/static/js/972.85ed6f60.chunk.js",
     "static/media/EmojiOneColor.woff2": "/static/media/EmojiOneColor.90ee5fb894c8d349bc54.woff2",
     "static/media/NotoColorEmoji-flags.woff2": "/static/media/NotoColorEmoji-flags.148141acfb7ce6e4f383.woff2",
     "static/media/signup.jpg": "/static/media/signup.8e156f478e50114d27d1.jpg",
@@ -14,14 +14,14 @@
     "static/media/str-chat__connection-error.svg": "/static/media/str-chat__connection-error.90385cff548e3b068187c19d5f25e675.svg",
     "index.html": "/index.html",
     "main.8b374129.css.map": "/static/css/main.8b374129.css.map",
-    "main.e9279cf2.js.map": "/static/js/main.e9279cf2.js.map",
-    "913.c580bfcb.chunk.js.map": "/static/js/913.c580bfcb.chunk.js.map",
-    "581.76baeebf.chunk.js.map": "/static/js/581.76baeebf.chunk.js.map",
+    "main.651c442a.js.map": "/static/js/main.651c442a.js.map",
+    "291.26adf023.chunk.js.map": "/static/js/291.26adf023.chunk.js.map",
+    "303.b9c88031.chunk.js.map": "/static/js/303.b9c88031.chunk.js.map",
     "717.b85a645b.chunk.js.map": "/static/js/717.b85a645b.chunk.js.map",
-    "829.4b3f5747.chunk.js.map": "/static/js/829.4b3f5747.chunk.js.map"
+    "972.85ed6f60.chunk.js.map": "/static/js/972.85ed6f60.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8b374129.css",
-    "static/js/main.e9279cf2.js"
+    "static/js/main.651c442a.js"
   ]
 }

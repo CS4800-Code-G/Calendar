@@ -4,7 +4,7 @@ import { UserList } from './'
 import { CloseCreateChannel } from '../assets'
 import { v4 as uuidv4 } from 'uuid';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "http://54.219.90.242:5000";
 
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
     const handleChange = (event) => {

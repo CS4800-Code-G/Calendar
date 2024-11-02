@@ -21,10 +21,10 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
 const twilioClient = require("twilio")(accountSid, authToken);
 const corsOptions = {
-  origin: ["http://localhost:8080", "https://example.com"],
+  origin: ["http://localhost:8080", "http://localhost:3000", "http://54.219.90.242", "http://syncschedule.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded());

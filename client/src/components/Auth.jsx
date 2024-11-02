@@ -159,6 +159,9 @@ const Auth = ({ isSignup, setIsSignup }) => {
   return (
     <div className="auth__form-container">
       <div className="auth__form-container_fields">
+      <div className="auth__form-container_title">
+        <h1>SyncSchedule</h1>
+      </div>
         <div className="auth__form-container_fields-content">
           <p>{isSignup ? "Sign Up" : "Sign In"}</p>
           {signupErrorMessage && isSignup && (
